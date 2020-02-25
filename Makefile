@@ -86,7 +86,7 @@ static-lib: $(LIBPREFIX)mylibrary$(LIBEXT)
 shared-lib: $(SOLIBPREFIX)mylibrary$(SOEXT)
 
 $(LIBPREFIX)mylibrary$(LIBEXT): $(LIBMYLIBRARY_OBJ:%.o=%.static.o)
-	$(AR) cru $@ $^
+	$(AR) cr $@ $^
 
 $(SOLIBPREFIX)mylibrary$(SOEXT): $(LIBMYLIBRARY_OBJ:%.o=%.shared.o)
 	$(CC) -o $@ $(OS_LINK_FLAGS) $^ $(LIBMYLIBRARY_SHARED_LDFLAGS) $(LIBMYLIBRARY_LDFLAGS) $(LDFLAGS) $(LIBS)
