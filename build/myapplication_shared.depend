@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1582653446 source:z:\ci-test\src\myapplication.c
+	"mylibrary.h"
+	<stdio.h>
+	<stdlib.h>
+
+1582651803 z:\ci-test\include\mylibrary.h
+

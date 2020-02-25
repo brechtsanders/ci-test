@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
-	<Workspace title="Workspace">
-		<Project filename="mylibrary.cbp" />
+	<Workspace title="CI Test">
+		<Project filename="mylibrary_static.cbp" />
+		<Project filename="mylibrary_shared.cbp" />
+		<Project filename="myapplication_static.cbp">
+			<Depends filename="mylibrary_static.cbp" />
+		</Project>
+		<Project filename="myapplication_shared.cbp">
+			<Depends filename="mylibrary_shared.cbp" />
+		</Project>
 	</Workspace>
 </CodeBlocks_workspace_file>
