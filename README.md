@@ -2,4 +2,4 @@
 Test project for continuous integration / continuous delivery
 
 Travis CI:
-[![Build Status](https://api.travis-ci.com/brechtsanders/ci-test.svg?branch=master)](https://travis-ci.com/brechtsanders/ci-test)
+[![Build Status](https://travis-ci.com/brechtsanders/ci-test.svg?branch=master)](https://travis-ci.com/brechtsanders/ci-test)
