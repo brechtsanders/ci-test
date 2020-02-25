@@ -1,8 +1,9 @@
 language: c
 #os: windows
-#compiler:
-#  - clang
-#  - gcc
+
+compiler:
+  - clang
+  - gcc
 
 sudo: false
 script:
