@@ -1,13 +1,22 @@
 language: c
 #os: windows
 
-os:
-  - linux
-  - osx
-  
-compiler:
-  - clang
-  - gcc
+#os:
+#  - linux
+#  - osx
+#  
+#compiler:
+#  - clang
+#  - gcc
+
+jobs:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+    - os: osx
+      compiler: clang
 
 sudo: false
 script:
