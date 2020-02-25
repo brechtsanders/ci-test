@@ -9,4 +9,4 @@ sudo: false
 script:
   - rm -rf build_result
   - mkdir -p build_result
-  - make install PREFIX=build_result DOXYGEN=
+  - make install PREFIX=build_result CC=$CC DOXYGEN=
