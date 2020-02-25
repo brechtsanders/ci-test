@@ -17,7 +17,9 @@ jobs:
       compiler: clang
     - os: osx
       compiler: clang
-    - os: windows
+    - os: android
+      compiler: gcc
+    #- os: windows
 
 before_install:
 - |-
