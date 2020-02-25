@@ -1,0 +1,11 @@
+language: c
+#os: windows
+#compiler:
+#  - clang
+#  - gcc
+
+sudo: false
+script:
+  - rm -rf build_result
+  - mkdir -p build_result
+  - make PREFIX=build_result install
