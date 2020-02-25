@@ -1,6 +1,10 @@
 language: c
 #os: windows
 
+os:
+  - linux
+  - osx
+  
 compiler:
   - clang
   - gcc
