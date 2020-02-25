@@ -20,7 +20,7 @@ BINEXT =
 SOLIBPREFIX = lib
 SOEXT = .so
 endif
-INCS = -Ilib
+INCS = -Iinclude
 CFLAGS = $(INCS) -Os
 CPPFLAGS = $(INCS) -Os
 STATIC_CFLAGS = -DBUILD_MYLIBRARY_STATIC
@@ -48,7 +48,7 @@ OSALIAS := win32
 endif
 endif
 
-LIBMYLIBRARY_OBJ = lib/mylibrary.o
+LIBMYLIBRARY_OBJ = src/mylibrary.o
 LIBMYLIBRARY_LDFLAGS = 
 LIBMYLIBRARY_SHARED_LDFLAGS =
 ifneq ($(OS),Windows_NT)
@@ -66,7 +66,7 @@ endif
 UTILS_BIN = src/myapplication$(BINEXT)
 
 COMMON_PACKAGE_FILES = README.md LICENSE Changelog.txt
-SOURCE_PACKAGE_FILES = $(COMMON_PACKAGE_FILES) Makefile doc/Doxyfile lib/*.h lib/*.c src/*.c build/*.workspace build/*.cbp
+SOURCE_PACKAGE_FILES = $(COMMON_PACKAGE_FILES) Makefile doc/Doxyfile include/*.h src/*.c build/*.workspace build/*.cbp build/*.depend
 
 default: all
 
@@ -93,14 +93,11 @@ $(SOLIBPREFIX)mylibrary$(SOEXT): $(LIBMYLIBRARY_OBJ:%.o=%.shared.o)
 
 utils: $(UTILS_BIN)
 
-src/myapplication$(BINEXT): $(@:%$(BINEXT)=%.static.o) $(LIBPREFIX)mylibrary$(LIBEXT)
+#src/myapplication_s$(BINEXT): %$(BINEXT): %.static.o $(LIBPREFIX)mylibrary$(LIBEXT)
+#	$(CC) $(STRIPFLAG) -o $@ $^ $(LIBMYLIBRARY_LDFLAGS) $(LDFLAGS)
+
+src/myapplication$(BINEXT): %$(BINEXT): %.shared.o $(SOLIBPREFIX)mylibrary$(SOEXT)
 	$(CC) $(STRIPFLAG) -o $@ $^ $(LIBMYLIBRARY_LDFLAGS) $(LDFLAGS)
-
-#src/myapplication$(BINEXT): src/myapplication.static.o $(LIBPREFIX)mylibrary$(LIBEXT)
-#	$(CC) $(STRIPFLAG) -o $@ $(@:%$(BINEXT)=%.static.o) $(LIBPREFIX)mylibrary$(LIBEXT) $(LIBMYLIBRARY_LDFLAGS) $(LDFLAGS)
-
-#src/myapplication$(BINEXT): src/myapplication.static.o $(LIBPREFIX)mylibrary$(LIBEXT)
-#	$(CC) $(STRIPFLAG) -o $@ src/myapplication.static.o $(LIBPREFIX)mylibrary$(LIBEXT) $(LIBMYLIBRARY_LDFLAGS) $(LDFLAGS)
 
 .PHONY: doc
 doc:
@@ -110,7 +107,7 @@ endif
 
 install: all doc
 	$(MKDIR) $(PREFIX)/include $(PREFIX)/lib $(PREFIX)/bin
-	$(CP) lib/*.h $(PREFIX)/include/
+	$(CP) include/*.h $(PREFIX)/include/
 	$(CP) *$(LIBEXT) $(PREFIX)/lib/
 	$(CP) $(UTILS_BIN) $(PREFIX)/bin/
 ifeq ($(OS),Windows_NT)
@@ -129,24 +126,24 @@ version:
 
 .PHONY: package
 package: version
-	tar cfJ mylibrary-$(shell cat version).tar.xz --transform="s?^?mylibrary-$(shell cat version)/?" $(SOURCE_PACKAGE_FILES)
+	tar cfJ ci-test-$(shell cat version).tar.xz --transform="s?^?ci-test-$(shell cat version)/?" $(SOURCE_PACKAGE_FILES)
 
 .PHONY: package
 binarypackage: version
 ifneq ($(OS),Windows_NT)
 	$(MAKE) PREFIX=binarypackage_temp_$(OSALIAS) install
-	tar cfJ mylibrary-$(shell cat version)-$(OSALIAS).tar.xz --transform="s?^binarypackage_temp_$(OSALIAS)/??" $(COMMON_PACKAGE_FILES) binarypackage_temp_$(OSALIAS)/*
+	tar cfJ ci-test-$(shell cat version)-$(OSALIAS).tar.xz --transform="s?^binarypackage_temp_$(OSALIAS)/??" $(COMMON_PACKAGE_FILES) binarypackage_temp_$(OSALIAS)/*
 else
 	$(MAKE) PREFIX=binarypackage_temp_$(OSALIAS) install DOXYGEN=
 	cp -f $(COMMON_PACKAGE_FILES) binarypackage_temp_$(OSALIAS)
-	rm -f mylibrary-$(shell cat version)-$(OSALIAS).zip
-	cd binarypackage_temp_$(OSALIAS) && zip -r9 ../mylibrary-$(shell cat version)-$(OSALIAS).zip $(COMMON_PACKAGE_FILES) * && cd ..
+	rm -f ci-test-$(shell cat version)-$(OSALIAS).zip
+	cd binarypackage_temp_$(OSALIAS) && zip -r9 ../ci-test-$(shell cat version)-$(OSALIAS).zip $(COMMON_PACKAGE_FILES) * && cd ..
 endif
 	rm -rf binarypackage_temp_$(OSALIAS)
 
 .PHONY: clean
 clean:
-	$(RM) lib/*.o src/*.o *$(LIBEXT) *$(SOEXT) $(UTILS_BIN) version libmylibrary-*.tar.xz doc/doxygen_sqlite3.db
+	$(RM) src/*.o *$(LIBEXT) *$(SOEXT) $(UTILS_BIN) version ci-test-*.tar.xz doc/doxygen_sqlite3.db
 ifeq ($(OS),Windows_NT)
 	$(RM) *.def
 endif
