@@ -101,6 +101,7 @@ before-script:
   - |-
     case $TRAVIS_OS_NAME in
       windows)
+        which make
         ;;
     esac
 
