@@ -1,4 +1,5 @@
 language: c
+sudo: false
 #os: windows
 
 #os:
@@ -86,13 +87,23 @@ before_install:
           "C:/Program Files/7-Zip/7z.exe" x -oC:/Prog/winlibs$WINBITS mingw-w64-*.7z
           rm -f mingw-w64-*.7z
         fi
+        echo C:/Prog
+        ls -l C:/Prog
+        echo C:/Prog/winlibs$WINBITS
+        ls -l C:/Prog/winlibs$WINBITS
         ;;
     esac
 
 cache:
-    - /C/Prog
+  - /C/Prog
     
-sudo: false
+before-script:
+  - |-
+    case $TRAVIS_OS_NAME in
+      windows)
+        ;;
+    esac
+
 script:
   - rm -rf build_result
   - mkdir -p build_result
