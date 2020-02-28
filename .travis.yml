@@ -72,8 +72,9 @@ before_install:
           "C:/Program Files/7-Zip/7z.exe" x "C:/Prog/msys2-base-x86_64-20190524.tar.xz" -o"C:/Prog"
           "C:/Program Files/7-Zip/7z.exe" x "C:/Prog/msys2-base-x86_64-20190524.tar" -o"C:/Prog"
           ls -l "C:/Prog/msys64"
+          touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
           cmd.exe "//C" "CD C:/Prog/msys64 && autorebasebase1st.bat"
-          rm -f msys2-base-*.tar.xz msys2-base-*.tar
+          rm -f "C:/Prog/msys2-base-*.tar.xz" "C:/Prog/msys2-base-*.tar"
           touch "C:/Prog/msys64/installed"
           echo "Please reboot Windows before proceeding"
           travis_terminate 1
