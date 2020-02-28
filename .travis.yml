@@ -67,7 +67,7 @@ before_install:
     case $TRAVIS_OS_NAME in
       windows)
         if [ ! -f "C:/Prog/msys64/installed" ]; then
-          wget -qc -P"C:/Prog" http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
+          wget -qc http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
           mkdir -p "C:/Prog"
           "C:/Program Files/7-Zip/7z.exe" e -so msys2-base-x86_64-20190524.tar.xz | tar x -C "C:/Prog"
           rm -f C:/Prog/msys2-base-*.tar.xz
