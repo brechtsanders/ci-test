@@ -83,25 +83,27 @@ before_install:
         #  travis_terminate 1
         #fi
         if [ ! -f /C/tools/msys64/usr/bin/bash.exe ]; then
-          #choco uninstall -y mingw
+          choco uninstall -y mingw
           choco upgrade --no-progress -y msys2
-          ls -l C:/Prog/*
+          ls -l /C/Prog/*
           ls -l /C/tools/msys64//*
         fi
-        if [ ! -f C:/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
+        if [ ! -f /C/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
           wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
-          "C:/Program Files/7-Zip/7z.exe" x -oC:/Prog/winlibs$WINBITS mingw-w64-*.7z
+          "/C/Program Files/7-Zip/7z.exe" x -o/C/Prog/winlibs$WINBITS mingw-w64-*.7z
           rm -f mingw-w64-*.7z
         fi
-        echo C:/Prog
-        ls -l C:/Prog
-        echo C:/Prog/winlibs$WINBITS
-        ls -l C:/Prog/winlibs$WINBITS
+        export PATH=/C/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/C/tools/msys64/mingw64/bin:$PATH
+        echo /C/Prog
+        ls -l /C/Prog
+        echo /C/Prog/winlibs$WINBITS
+        ls -l /C/Prog/winlibs$WINBITS
         ;;
     esac
 
 cache:
   directories:
+    - $HOME/AppData/Local/Temp/chocolatey
     - /C/tools/msys64
     - /C/Prog
     
