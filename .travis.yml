@@ -83,7 +83,8 @@ before_install:
         #  travis_terminate 1
         #fi
         if [ ! -f /C/tools/msys64/usr/bin/bash.exe ]; then
-          choco uninstall -y mingw
+          #choco uninstall -y mingw
+          ls -1 /C/tools/msys64/msys2_shell.cmd &> /dev/null || rm -rf C:/tools/msys64
           choco upgrade --no-progress -y msys2
           export msys2='cmd //C RefreshEnv.cmd '
           export msys2+='& set MSYS=winsymlinks:nativestrict '
