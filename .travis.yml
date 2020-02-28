@@ -63,22 +63,21 @@ jobs:
 #    - /C/tools/msys64
 
 before_install:
-  - wget --version
   - |-
     case $TRAVIS_OS_NAME in
       windows)
-        tasklist
-        set
-        ver
-        if [ 1 -eq 1 ]; then echo Shell ok; fi
-        ps ax
-        pwd -W
-        pushd $(dirname $(which bash.exe))
-        pwd
-        pwd -W
-        popd
+        tar --version
+        xz --version
+        if [ ! -f C:/Prog/msys64/installed ]; then
+          wget -c http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
+          mkdir -p C:/Prog
+          tar xfJ msys2-base-x86_64-20190524.tar.xz -C C:/Prog
+        fi
         ;;
     esac
+
+cache:
+    - /C/Prog/msys64
     
 sudo: false
 script:
