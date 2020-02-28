@@ -63,7 +63,7 @@ jobs:
 #    - /C/tools/msys64
 
 before_install:
-  - >
+  - |-
     echo "TRAVIS_OS_NAME:"
     echo $TRAVIS_OS_NAME
     case $TRAVIS_OS_NAME in
