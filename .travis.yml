@@ -11,15 +11,19 @@ language: c
 
 jobs:
   include:
-    - os: linux
+    - name: "Linux GCC"
+      os: linux
       compiler: gcc
-    - os: linux
+    - name: "Linux Clang"
+      os: linux
       compiler: clang
-    - os: osx
+    - name: "Mac OS X Clang"
+      os: osx
       compiler: clang
-    - os: android
+    - name: "Win64 GCC"
+      os: windows
+      env: WINBITS=64
       compiler: gcc
-    #- os: windows
 
 before_install:
 - |-
