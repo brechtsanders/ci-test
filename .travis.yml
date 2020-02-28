@@ -71,13 +71,14 @@ before_install:
         ver
         if [ 1 -eq 1 ]; then echo Shell ok; fi
         ps ax
+        pwd -W
         pushd $(dirname $(which bash.exe))
         pwd
         pwd -W
         popd
         ;;
     esac
-
+    
 sudo: false
 script:
   - rm -rf build_result
