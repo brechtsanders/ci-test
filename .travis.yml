@@ -71,6 +71,10 @@ before_install:
         ver
         if [ 1 -eq 1 ]; then echo Shell ok; fi
         ps ax
+        pushd $(dirname $(which bash.exe))
+        pwd
+        pwd -W
+        popd
         ;;
     esac
     
