@@ -85,8 +85,15 @@ before_install:
         if [ ! -f /C/tools/msys64/usr/bin/bash.exe ]; then
           choco uninstall -y mingw
           choco upgrade --no-progress -y msys2
+          export msys2='cmd //C RefreshEnv.cmd '
+          export msys2+='& set MSYS=winsymlinks:nativestrict '
+          export msys2+='& C:\\tools\\msys64\\msys2_shell.cmd -defterm -no-start'
+          export mingw64="$msys2 -mingw64 -full-path -here -c "\"\$@"\" --"
+          export msys2+=" -msys2 -c "\"\$@"\" --"
+          $msys2 pacman --sync --noconfirm --needed mingw-w64-x86_64-toolchain
+          taskkill //IM gpg-agent.exe //F  # https://travis-ci.community/t/4967
           ls -l /C/Prog/*
-          ls -l /C/tools/msys64//*
+          ls -l /C/tools/msys64/*
         fi
         if [ ! -f /C/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
           wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
