@@ -82,6 +82,11 @@ before_install:
         #  echo "Please reboot Windows before proceeding"
         #  travis_terminate 1
         #fi
+        if [ ! -f C:/Prog/msys2/usr/bin/bash.exe ]; then
+          choco uninstall -y mingw
+          choco upgrade --no-progress -y msys2 --install-directory=C:/Prog/msys2
+          ls -l C:/Prog/msys2
+        fi
         if [ ! -f C:/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
           wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
           "C:/Program Files/7-Zip/7z.exe" x -oC:/Prog/winlibs$WINBITS mingw-w64-*.7z
