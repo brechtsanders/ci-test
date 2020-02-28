@@ -69,8 +69,7 @@ before_install:
         if [ ! -f "C:/Prog/msys64/installed" ]; then
           mkdir -p "C:/Prog"
           wget -qc -P"C:/Prog" http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
-          "C:/Program Files/7-Zip/7z.exe" x "C:/Prog/msys2-base-x86_64-20190524.tar.xz" -o"C:/Prog"
-          "C:/Program Files/7-Zip/7z.exe" x "C:/Prog/msys2-base-x86_64-20190524.tar" -o"C:/Prog"
+          "C:/Program Files/7-Zip/7z.exe" e -so "C:/Prog/msys2-base-x86_64-20190524.tar.xz" | tar x -C "C:/Prog"
           ls -l "C:/Prog/msys64"
           touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
           cmd.exe "//C" "CD C:/Prog/msys64 && autorebasebase1st.bat"
