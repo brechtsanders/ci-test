@@ -67,14 +67,13 @@ before_install:
     case $TRAVIS_OS_NAME in
       windows)
         if [ ! -f "C:/Prog/msys64/installed" ]; then
-          mkdir -p "C:/Prog"
           wget -qc -P"C:/Prog" http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
-          "C:/Program Files/7-Zip/7z.exe" e -so "C:/Prog/msys2-base-x86_64-20190524.tar.xz" | tar x -C "C:/Prog"
+          mkdir -p "C:/Prog"
+          "C:/Program Files/7-Zip/7z.exe" e -so msys2-base-x86_64-20190524.tar.xz | tar x -C "C:/Prog"
+          rm -f C:/Prog/msys2-base-*.tar.xz
           ls -l "C:/Prog/msys64"
-          cd "C:/Prog/msys64" && echo exit|./msys2.exe
-          touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
-          cmd.exe "//C" "CD C:/Prog/msys64 && autorebasebase1st.bat"
-          rm -f "C:/Prog/msys2-base-*.tar.xz" "C:/Prog/msys2-base-*.tar"
+          #touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
+          cd C:/Prog/msys64 && ( cmd.exe "//C" "autorebasebase1st.bat" || cmd.exe "//C" "autorebase.bat" )
           touch "C:/Prog/msys64/installed"
           echo "Please reboot Windows before proceeding"
           travis_terminate 1
