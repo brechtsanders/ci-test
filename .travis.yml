@@ -73,6 +73,7 @@ before_install:
           "C:/Program Files/7-Zip/7z.exe" x "C:/Prog/msys2-base-x86_64-20190524.tar" -o"C:/Prog"
           ls -l
           cd "C:/Prog/msys64"
+          touch "base-dlls.txt"
           cmd.exe "//C" "C:/Prog/msys64/autorebasebase1st.bat"
           rm -f msys2-base-*.tar.xz msys2-base-*.tar
           touch "C:/Prog/msys64/installed"
