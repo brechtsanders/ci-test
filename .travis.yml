@@ -63,10 +63,7 @@ jobs:
 #    - /C/tools/msys64
 
 before_install:
-  - |-
-    echo "TRAVIS_OS_NAME:"
-  - |-
-    echo "$TRAVIS_OS_NAME"
+  - wget --version
   - |-
     case $TRAVIS_OS_NAME in
       windows)
