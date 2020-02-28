@@ -66,20 +66,25 @@ before_install:
   - |-
     case $TRAVIS_OS_NAME in
       windows)
-        if [ ! -f "C:/Prog/msys64/installed" ]; then
-          which bash.exe
-          ls -l $(dirname $(which bash.exe))
-          wget -qc http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
-          mkdir -p "C:/Prog"
-          "C:/Program Files/7-Zip/7z.exe" e -so msys2-base-x86_64-20190524.tar.xz | tar x -C "C:/Prog"
-          rm -f C:/Prog/msys2-base-*.tar.xz
-          C:/Prog/msys64/usr/bin/bash.exe C:/Prog/msys64/usr/bin/rebaseall -p
-          ls -l "C:/Prog/msys64"
-          #touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
-          #cd C:/Prog/msys64 && ( cmd.exe //C autorebasebase1st.bat || cmd.exe //C autorebase.bat )
-          touch "C:/Prog/msys64/installed"
-          echo "Please reboot Windows before proceeding"
-          travis_terminate 1
+        #if [ ! -f "C:/Prog/msys64/installed" ]; then
+        #  which bash.exe
+        #  ls -l $(dirname $(which bash.exe))
+        #  wget -qc http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
+        #  mkdir -p "C:/Prog"
+        #  "C:/Program Files/7-Zip/7z.exe" e -so msys2-base-x86_64-20190524.tar.xz | tar x -C "C:/Prog"
+        #  rm -f C:/Prog/msys2-base-*.tar.xz
+        #  C:/Prog/msys64/usr/bin/bash.exe C:/Prog/msys64/usr/bin/rebaseall -p
+        #  ls -l "C:/Prog/msys64"
+        #  #touch "C:/Prog/msys64/base-dlls.txt" "C:/Prog/msys64/base-dlls-unix.txt"
+        #  #cd C:/Prog/msys64 && ( cmd.exe //C autorebasebase1st.bat || cmd.exe //C autorebase.bat )
+        #  touch "C:/Prog/msys64/installed"
+        #  echo "Please reboot Windows before proceeding"
+        #  travis_terminate 1
+        #fi
+        if [ ! -f C:/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
+          wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
+          "C:/Program Files/7-Zip/7z.exe" x -oC:/Prog/winlibs$WINBITS mingw-w64-*.7z
+          rm -f mingw-w64-*.7z
         fi
         ;;
     esac
