@@ -66,13 +66,13 @@ before_install:
   - |-
     case $TRAVIS_OS_NAME in
       windows)
-        ls "C:/Program Files"
-        tar --version
-        xz --version
-        if [ ! -f C:/Prog/msys64/installed ]; then
+        if [ ! -f "C:/Prog/msys64/installed" ]; then
           wget -qc http://repo.msys2.org/distrib/x86_64/msys2-base-x86_64-20190524.tar.xz
-          mkdir -p C:/Prog
-          tar xfJ msys2-base-x86_64-20190524.tar.xz -C C:/Prog
+          mkdir -p "C:/Prog"
+          "C:/Program Files/7-Zip/7z.exe" x msys2-base-x86_64-20190524.tar.xz -o "C:/Prog"
+          cd "D:/Prog/msys64"
+          $COMSPEC /C autorebasebase1st.bat
+          touch "C:/Prog/msys64/installed"
         fi
         ;;
     esac
