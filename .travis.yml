@@ -114,16 +114,16 @@ cache:
     - /c/tools/msys64
     - /c/Prog
     
-before-script:
-  - |-
-    case $TRAVIS_OS_NAME in
-      windows)
-        #which make
-        #/c/tools/msys64/msys2_shell.cmd
-        export PATH=/c/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/c/tools/msys64/usr/bin:$PATH
-        /c/tools/msys64/usr/bin/bash.exe --login -i
-        ;;
-    esac
+#before-script:
+#  - |-
+#    case $TRAVIS_OS_NAME in
+#      windows)
+#        #which make
+#        #/c/tools/msys64/msys2_shell.cmd
+#        export PATH=/c/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/c/tools/msys64/usr/bin:$PATH
+#        /c/tools/msys64/usr/bin/bash.exe --login -i
+#        ;;
+#    esac
 
 script:
   - pwd
