@@ -101,7 +101,6 @@ before_install:
           "/C/Program Files/7-Zip/7z.exe" x -o/C/Prog/winlibs$WINBITS mingw-w64-*.7z
           rm -f mingw-w64-*.7z
         fi
-        export PATH=/C/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/C/tools/msys64/usr/bin:$PATH
         #echo /C/Prog
         #ls -l /C/Prog
         #echo /C/Prog/winlibs$WINBITS
@@ -121,6 +120,7 @@ before-script:
       windows)
         #which make
         /C/tools/msys64/msys2_shell.cmd
+        export PATH=/C/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/C/tools/msys64/usr/bin:$PATH
         ;;
     esac
 
