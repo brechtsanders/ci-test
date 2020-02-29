@@ -121,6 +121,7 @@ before-script:
         #which make
         #/c/tools/msys64/msys2_shell.cmd
         export PATH=/c/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/c/tools/msys64/usr/bin:$PATH
+        /c/tools/msys64/usr/bin/bash.exe
         ;;
     esac
 
