@@ -82,9 +82,9 @@ before_install:
         #  echo "Please reboot Windows before proceeding"
         #  travis_terminate 1
         #fi
-        if [ ! -f /C/tools/msys64/usr/bin/bash.exe ]; then
+        if [ ! -f /c/tools/msys64/usr/bin/bash.exe ]; then
           #choco uninstall -y mingw
-          ls -1 /C/tools/msys64/msys2_shell.cmd &> /dev/null || rm -rf C:/tools/msys64
+          ls -1 /c/tools/msys64/msys2_shell.cmd &> /dev/null || rm -rf C:/tools/msys64
           choco upgrade --no-progress -y msys2
           export msys2='cmd //C RefreshEnv.cmd '
           export msys2+='& set MSYS=winsymlinks:nativestrict '
@@ -95,32 +95,32 @@ before_install:
           # https://travis-ci.community/t/4967
           #taskkill //IM gpg-agent.exe //F
         fi
-        #rm -rf /C/Prog/winlibs$WINBITS
-        if [ ! -f /C/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
+        #rm -rf /c/Prog/winlibs$WINBITS
+        if [ ! -f /c/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
           wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
-          "/C/Program Files/7-Zip/7z.exe" x -o/C/Prog/winlibs$WINBITS mingw-w64-*.7z
+          "/c/Program Files/7-Zip/7z.exe" x -o/c/Prog/winlibs$WINBITS mingw-w64-*.7z
           rm -f mingw-w64-*.7z
         fi
-        #echo /C/Prog
-        #ls -l /C/Prog
-        #echo /C/Prog/winlibs$WINBITS
-        #ls -l /C/Prog/winlibs$WINBITS
+        #echo /c/Prog
+        #ls -l /c/Prog
+        #echo /c/Prog/winlibs$WINBITS
+        #ls -l /c/Prog/winlibs$WINBITS
         ;;
     esac
 
 cache:
   directories:
     - $HOME/AppData/Local/Temp/chocolatey
-    - /C/tools/msys64
-    - /C/Prog
+    - /c/tools/msys64
+    - /c/Prog
     
 before-script:
   - |-
     case $TRAVIS_OS_NAME in
       windows)
         #which make
-        /C/tools/msys64/msys2_shell.cmd
-        export PATH=/C/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/C/tools/msys64/usr/bin:$PATH
+        #/c/tools/msys64/msys2_shell.cmd
+        export PATH=/c/Prog/winlibs$WINBITS/mingw$WINBITS/bin:/c/tools/msys64/usr/bin:$PATH
         ;;
     esac
 
