@@ -120,6 +120,7 @@ before-script:
     case $TRAVIS_OS_NAME in
       windows)
         #which make
+        /C/tools/msys64/msys2_shell.cmd
         ;;
     esac
 
