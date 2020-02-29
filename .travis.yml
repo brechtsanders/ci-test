@@ -93,7 +93,7 @@ before_install:
           export msys2+=" -msys2 -c "\"\$@"\" --"
           $msys2 pacman --sync --noconfirm --needed git wget tar gzip binutils autoconf make libtool automake patch unzip xz bison pkg-config
           # https://travis-ci.community/t/4967
-          taskkill //IM gpg-agent.exe //F || true
+          #taskkill //IM gpg-agent.exe //F
         fi
         if [ ! -f /C/Prog/winlibs$WINBITS/mingw$WINBITS/bin/gcc.exe ]; then
           wget -qc https://github.com/brechtsanders/winlibs_mingw/releases/download/9.2.0-7.0.0-r4/mingw-w64-$(if [ "$WINBITS" == "32" ]; then echo "i686"; else echo "x86_64"; fi)-9.2.0-7.0.0-r4.7z
