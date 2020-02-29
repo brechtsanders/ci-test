@@ -126,8 +126,9 @@ before-script:
 
 script:
   - pwd
+  - echo $PATH
+  - ps ax
   - dir
-  - set
   - ls -l
   - mkdir -p build_result
   - make install PREFIX=build_result CC=$CC DOXYGEN=
