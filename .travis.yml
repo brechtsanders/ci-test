@@ -126,6 +126,8 @@ before-script:
 
 script:
   - pwd
+  - dir
+  - set
   - ls -l
   - mkdir -p build_result
   - make install PREFIX=build_result CC=$CC DOXYGEN=
