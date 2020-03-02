@@ -5,9 +5,8 @@ image: "Windows Server 2012 R2"
 init:
   - pwd
   - ls
-  - C:/msys64/usr/bin/bash.exe --login -i
-  - pwd
-  - ls -l
+  - ls -l C:/mingw-w64
+  - dir C:\mingw-w64
 
 build_script:
   - mkdir -p build_result
