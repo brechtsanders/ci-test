@@ -12,4 +12,4 @@ init:
 
 build_script:
   - mkdir -p build_result
-  - make install PREFIX=build_result CC=$CC DOXYGEN=
+  - make install PREFIX=build_result DOXYGEN=
