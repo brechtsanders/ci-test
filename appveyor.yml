@@ -5,8 +5,9 @@ image: "Windows Server 2012 R2"
 init:
   - pwd
   - ls
-  - ls 'C:\msys64'
-  - ls C:/msys64/
+  - C:/msys64/usr/bin/bash.exe --login -i
+  - pwd
+  - ls -l
 
 build_script:
   - mkdir -p build_result
