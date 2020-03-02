@@ -3,11 +3,6 @@ max_jobs: 1
 image: "Windows Server 2012 R2"
 
 init:
-  - pwd
-  - ls
-  - ls -l C:/mingw-w64
-  - dir C:\mingw-w64
-  - dir C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0
   - SET PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\bin;C:/msys64/usr/bin;%PATH%
 
 build_script:
