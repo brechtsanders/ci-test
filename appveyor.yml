@@ -5,8 +5,8 @@ image: "Windows Server 2012 R2"
 init:
   - pwd
   - ls
-  - ls C:/MinGW/msys/1.0
-  - ls C:/MinGW/msys/1.0/bin
+  - ls 'C:\msys64'
+  - ls C:/msys64/
 
 build_script:
   - mkdir -p build_result
