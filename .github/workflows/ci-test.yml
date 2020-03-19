@@ -38,17 +38,17 @@ jobs:
 #            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
 #          }
         - {
-            name: "Windows MinGW", artifact: "Windows-MinGW.tar",
+            name: "Windows MinGW", artifact: "Windows-MinGW.tar.xz",
             os: windows-latest,
             cc: "gcc", cxx: "g++"
           }
         - {
-            name: "Ubuntu GCC", artifact: "Linux.tar",
+            name: "Ubuntu GCC", artifact: "Linux.tar.xz",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++"
           }
         - {
-            name: "macOS Clang", artifact: "macOS.tar",
+            name: "macOS Clang", artifact: "macOS.tar.xz",
             os: macos-latest,
             cc: "clang", cxx: "clang++"
           }
@@ -62,12 +62,12 @@ jobs:
       run: |
         mkdir -p build_result
         make install PREFIX=build_result DOXYGEN=
-        tar cf ./${{ matrix.config.artifact }} --strip-components=1 build_result
-        ls -l
-        pwd
-#    - name: Pack
-#      working-directory: instdir
-#      run: tar cf ./${{ matrix.config.artifact }} --strip-components=1 build_result
+#        tar cfJ ./${{ matrix.config.artifact }} --strip-components=1 build_result
+#        ls -l
+#        pwd
+    - name: Pack
+      working-directory: instdir
+      run: tar cfJ ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
