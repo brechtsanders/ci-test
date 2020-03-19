@@ -31,12 +31,12 @@ jobs:
       #fail-fast: false
       matrix:
         config:
-        - {
-            name: "Windows MSVC", artifact: "Windows-MSVC.tar.xz",
-            os: windows-latest,
-            cc: "cl", cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-          }
+#        - {
+#            name: "Windows MSVC", artifact: "Windows-MSVC.tar.xz",
+#            os: windows-latest,
+#            cc: "cl", cxx: "cl",
+#            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+#          }
         - {
             name: "Windows MinGW", artifact: "Windows-MinGW.tar.bz2",
             os: windows-latest,
@@ -60,7 +60,10 @@ jobs:
       run: gcc --version
     - name: Compile, install, package
       run: |
-        set
+        echo cc=$xx
+        echo CC=$CC
+        echo cxx=$cxx
+        echo CXX=$CXX
         mkdir -p build_result
         make install PREFIX=build_result DOXYGEN=
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
