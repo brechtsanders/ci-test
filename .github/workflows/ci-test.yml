@@ -1,5 +1,5 @@
-#name: GitHub-CI for ci-test
-name: CI
+name: GitHub-CI for ci-test
+#name: CI
 
 on:
   push:
@@ -31,5 +31,4 @@ jobs:
     - name: Run a multi-line script
       run: |
         mkdir -p build_result
-        false
         make install PREFIX=build_result DOXYGEN=
