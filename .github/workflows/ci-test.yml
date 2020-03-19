@@ -58,16 +58,11 @@ jobs:
       run: make --version
     - name: Get compiler version
       run: gcc --version
-    - name: Compile and install
+    - name: Compile, install, package
       run: |
         mkdir -p build_result
         make install PREFIX=build_result DOXYGEN=
-#        tar cfJ ./${{ matrix.config.artifact }} --strip-components=1 build_result
-#        ls -l
-#        pwd
-    - name: Pack
-      working-directory: instdir
-      run: tar cfJ ./${{ matrix.config.artifact }} --strip-components=1 build_result
+        tar cfJ ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
