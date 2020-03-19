@@ -32,31 +32,33 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest MSVC", artifact: "Windows-MSVC.tar.xz",
+            name: "Windows MSVC", artifact: "Windows-MSVC.tar.xz",
             os: windows-latest,
             cc: "cl", cxx: "cl",
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
           }
         - {
-            name: "Windows Latest MinGW", artifact: "Windows-MinGW.tar.xz",
+            name: "Windows MinGW", artifact: "Windows-MinGW.tar.xz",
             os: windows-latest,
             cc: "gcc", cxx: "g++"
           }
         - {
-            name: "Ubuntu Latest GCC", artifact: "Linux.tar.xz",
+            name: "Ubuntu GCC", artifact: "Linux.tar.xz",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++"
           }
         - {
-            name: "macOS Latest Clang", artifact: "macOS.tar.xz",
+            name: "macOS Clang", artifact: "macOS.tar.xz",
             os: macos-latest,
             cc: "clang", cxx: "clang++"
           }
     steps:
     - uses: actions/checkout@v1
-    - name: Download Ninja and CMake
+    - name: Get make version
+      run: make --version
+    - name: Get compiler version
+      run: $CC --version
+    - name: Compile
       run: |
-        make --version
-        gcc --version
         mkdir -p build_result
-        make install PREFIX=build_result DOXYGEN=
+        make install PREFIX=build_result DOXYGEN= CC=$CC CXX=$CXX
