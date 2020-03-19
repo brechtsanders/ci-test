@@ -54,19 +54,11 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-#    - name: Get make version
-#      run: make --version
-#    - name: Get compiler version
-#      run: gcc --version
     - name: Compile, install, package
       run: |
-        mkdir -p build_result
+#        mkdir -p build_result
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
-#        tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
-    - name: Get info
-      run: |
-        pwd
-        ls -l ./${{ matrix.config.artifact }}
+        tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
