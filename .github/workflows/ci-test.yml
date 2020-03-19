@@ -62,9 +62,11 @@ jobs:
       run: |
         mkdir -p build_result
         make install PREFIX=build_result DOXYGEN=
-    - name: Pack
-      working-directory: instdir
-      run: tar cfJ --strip-components=1 ../${{ matrix.config.artifact }} build_result
+        tar --version
+        tar cfJ --strip-components=1 ../${{ matrix.config.artifact }} build_result
+#    - name: Pack
+#      working-directory: instdir
+#      run: tar cfJ --strip-components=1 ../${{ matrix.config.artifact }} build_result
     - name: Upload
       uses: actions/upload-artifact@v1
       with:
