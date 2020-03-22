@@ -6,8 +6,8 @@
  * This header file defines the functions needed for the basic library example
  */
 
-#ifndef INCLUDED_PE_IO_H
-#define INCLUDED_PE_IO_H
+#ifndef INCLUDED_MYLIBRARY_H
+#define INCLUDED_MYLIBRARY_H
 
 /*! \cond PRIVATE */
 #if !defined(DLL_EXPORT_MYLIBRARY)
