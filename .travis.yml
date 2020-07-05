@@ -132,4 +132,5 @@ script:
   - dir
   - ls -l
   - mkdir -p build_result
-  - make install PREFIX=build_result CC=$CC DOXYGEN=
+  - which make
+  - make install PREFIX=build_result CC=$CC DOXYGEN= V=1
