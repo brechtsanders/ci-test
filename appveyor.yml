@@ -8,4 +8,4 @@ init:
 build_script:
   - ls -l
   - mkdir -p build_result
-  - make install PREFIX=build_result DOXYGEN=
+  - make install PREFIX=build_result DOXYGEN= V=1
