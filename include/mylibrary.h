@@ -11,7 +11,7 @@
 
 /*! \cond PRIVATE */
 #if !defined(DLL_EXPORT_MYLIBRARY)
-# if defined(_WIN32) && defined(BUILD_MYLIBRARY_DLL)
+# if defined(_WIN32) && (defined(BUILD_MYLIBRARY_DLL) || defined(MYLIBRARY_EXPORTS))
 #  define DLL_EXPORT_MYLIBRARY __declspec(dllexport)
 # elif defined(_WIN32) && !defined(STATIC) && !defined(BUILD_MYLIBRARY_STATIC) && !defined(BUILD_MYLIBRARY)
 #  define DLL_EXPORT_MYLIBRARY __declspec(dllimport)
@@ -34,7 +34,7 @@
 /*! \brief minor version number */
 #define MYLIBRARY_VERSION_MINOR 0
 /*! \brief micro version number */
-#define MYLIBRARY_VERSION_MICRO 1
+#define MYLIBRARY_VERSION_MICRO 3
 /*! @} */
 
 /*! \brief packed version number */
