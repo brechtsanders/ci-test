@@ -82,11 +82,11 @@ jobs:
       run: |
         CC=${{ matrix.config.cc }} CXX=${{ matrix.config.cxx }} cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
         set MAKEARG=-Cbuild_temp
-    - if: ${{ matrix.config.build_method }} == 'make'
+    - if: matrix.config.build_method == 'make'
       name: Build + install (make)
       run: |
         make install $MAKEARG PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
-    - if: ${{ matrix.config.build_method }} == 'nmake'
+    - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
         ls -l
