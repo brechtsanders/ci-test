@@ -35,28 +35,30 @@ jobs:
             name: "Windows MSVC (make)", artifact: "Windows-MSVC.tar.xz",
             os: windows-latest,
             cc: "cl", cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+            configure_method: "", build_method: "make"
           }
         - {
             name: "Windows MinGW (make)", artifact: "Windows-MinGW.tar.bz2",
             os: windows-latest,
             cc: "gcc", cxx: "g++",
-            TEST: "1"
+            configure_method: "", build_method: "make"
           }
         - {
             name: "Ubuntu GCC (make)", artifact: "Linux.tar.bz2",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++",
-            TEST: "2"
+            configure_method: "", build_method: "make"
           }
         - {
             name: "macOS Clang (make)", artifact: "macOS.tar.bz2",
             os: macos-latest,
-            cc: "clang", cxx: "clang++"
+            cc: "clang", cxx: "clang++",
+            configure_method: "", build_method: "make"
           }
     steps:
     - uses: actions/checkout@v1
-    - if: contains(matrix.config.name, 'macOS')
+    - if: build_method == "make"
       name: Compile, install, package
       run: |
         echo "${{ matrix.config.name }}"
