@@ -58,7 +58,7 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-    - if: contains(matrix.config.build_method, "make")
+    - #if: contains(matrix.config.build_method, "make")
       name: Compile, install, package
       run: |
         echo "${{ matrix.config.name }}"
