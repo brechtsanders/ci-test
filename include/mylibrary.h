@@ -13,7 +13,7 @@
 #if !defined(DLL_EXPORT_MYLIBRARY)
 # if defined(_WIN32) && (defined(BUILD_MYLIBRARY_DLL) || defined(MYLIBRARY_EXPORTS))
 #  define DLL_EXPORT_MYLIBRARY __declspec(dllexport)
-# elif defined(_WIN32) && !defined(STATIC) && !defined(BUILD_MYLIBRARY_STATIC) && !defined(BUILD_MYLIBRARY)
+# elif defined(__MINGW32__) && !defined(STATIC) && !defined(BUILD_MYLIBRARY_STATIC) && !defined(BUILD_MYLIBRARY)
 #  define DLL_EXPORT_MYLIBRARY __declspec(dllimport)
 # else
 #  define DLL_EXPORT_MYLIBRARY
