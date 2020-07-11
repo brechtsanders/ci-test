@@ -80,17 +80,14 @@ jobs:
         arch: 'amd64'
     - if: matrix.config.configure_method != 'cmake'
       name: Configure
-      env:
-        MAKEDIR: .
       run: |
-        echo MAKEDIR=$MAKEDIR
+        echo "::set-env name=MAKEDIR::."
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
-      env:
-        MAKEDIR: build_temp
       run: |
-        echo MAKEDIR=$MAKEDIR
+        echo MAKEDIR=build_temp
         cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -B$MAKEDIR
+        echo "::set-env name=MAKEDIR::$MAKEDIR"
     - if: matrix.config.build_method == 'make'
       name: Build + install (make)
       run: |
