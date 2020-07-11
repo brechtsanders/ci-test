@@ -77,6 +77,8 @@ jobs:
     - name: Initialize
       with:
         MAKEDIR=.
+      run: |
+        echo $MAKEDIR
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
