@@ -94,11 +94,11 @@ jobs:
     - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
-        cmake --build ${{ env.MAKEDIR }}
-        cmake --install ${{ env.MAKEDIR }}
-        #pushd ${{ env.MAKEDIR }}
-        #nmake /NOLOGO
-        #popd
+        #cmake --build ${{ env.MAKEDIR }}
+        #cmake --install ${{ env.MAKEDIR }}
+        pushd ${{ env.MAKEDIR }}
+        nmake /NOLOGO install/strip
+        popd
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
