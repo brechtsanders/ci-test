@@ -57,7 +57,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Compile, install, package
-      if: startsWith(matrix.os, 'macOS')
+      if: startsWith(matrix.name, 'macOS')
       run: |
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
