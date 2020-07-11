@@ -97,7 +97,7 @@ jobs:
         #cmake --build ${{ env.MAKEDIR }}
         #cmake --install ${{ env.MAKEDIR }}
         pushd ${{ env.MAKEDIR }}
-        nmake /NOLOGO install/strip
+        nmake /NOLOGO install
         popd
     - name: Pack
       run: |
