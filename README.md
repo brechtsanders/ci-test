@@ -1,6 +1,8 @@
 # ci-test
 Test project for continuous integration / continuous delivery
 
+## GitHub Actions CI
+![GitHub-CI for ci-test](https://github.com/brechtsanders/ci-test/workflows/GitHub-CI%20for%20ci-test/badge.svg)
 ## Travis CI
 [![Build Status](https://travis-ci.com/brechtsanders/ci-test.svg?branch=master)](https://travis-ci.com/brechtsanders/ci-test)
 ## AppVeyor CI
