@@ -70,11 +70,11 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-    - if: ${{ matrix.config.environment_script }}
+    - if: {{ matrix.config.environment_script != "" }}
       name: Environment script
       run: |
         "${{ matrix.config.environment_script }}"
-    - if: ${{ matrix.configure_method.build_method }} && ${{ matrix.configure_method.build_method }} == "cmake"
+    - if: {{ matrix.configure_method.build_method == "cmake" }}
       name: Configure (CMake)
       run: |
         echo Configure method: ${{ matrix.configure_method.build_method }}
