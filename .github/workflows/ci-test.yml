@@ -74,25 +74,28 @@ jobs:
 #      name: Environment script
 #      run: |
 #        "${{ matrix.config.environment_script }}"
+    - name: Initialize
+      run: |
+        set MAKEDIR=.
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
 #      arch: amd64
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
-        cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
-        set MAKEARG=-Cbuild_temp
+        set MAKEDIR=build_temp
+        cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -B$MAKEDIR
     - if: matrix.config.build_method == 'make'
       name: Build + install (make)
       run: |
-        make install $MAKEARG PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
+        make -C$MAKEDIR install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
     - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
         dir
         dir build_temp
         nmake
-        nmake /NOLOGO
+        nmake /NOLOGO /F $MAKEDIR/Makefile
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
