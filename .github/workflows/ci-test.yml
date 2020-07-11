@@ -61,7 +61,8 @@ jobs:
     - if: ${{ matrix.config.build_method }} == "make"
       name: Compile, install, package
       run: |
-        type ${{ matrix.config.environment_script }}
+        type "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvarsall.bat"
+        ${{ matrix.config.environment_script }}
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Pack
