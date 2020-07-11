@@ -67,7 +67,11 @@ jobs:
     - if: ${{ matrix.config.configure_method }} == "cmake"
       name: Configure (CMake)
       run: |
-        PATH=$(pwd)/win32bin/cmake-$VERSION-win32-x86/bin:$PATH cmake.exe -GMakefiles -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF
+        cmake -GMakefiles -DCMAKE_INSTALL_PREFIX:PATH=build_result \
+          -DBUILD_STATIC:BOOL=ON \
+          -DBUILD_SHARED:BOOL=ON \
+          -DBUILD_UTILS:BOOL=ON \
+          -DBUILD_DOCUMENTATION:BOOL=OFF
     - if: ${{ matrix.config.build_method }} == "make"
       name: Compile, install, package
       run: |
