@@ -58,7 +58,7 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-    - if: ${{ matrix.config.environment_script }} != ""
+    - if: ${{ matrix.config.environment_script }} != "" && ${{ matrix.config.environment_script }} != null
       name: Environment script
       run: |
         "${{ matrix.config.environment_script }}"
