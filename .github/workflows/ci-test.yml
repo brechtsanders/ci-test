@@ -75,18 +75,22 @@ jobs:
 #      run: |
 #        "${{ matrix.config.environment_script }}"
     - if: matrix.config.cc == 'cl'
-      #uses: microsoft/setup-msbuild@v1.0.0
       uses: ilammy/msvc-dev-cmd@v1
+      arch: amd64
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
-        cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
+        CC=${{ matrix.config.cc }} CXX=${{ matrix.config.cxx }} cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
         set MAKEARG=-Cbuild_temp
     - if: ${{ matrix.config.build_method }} == 'make'
-      name: Compile, install, package
+      name: Build + install (make)
       run: |
         make install $MAKEARG PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
-        tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
+    - if: ${{ matrix.config.build_method }} == 'nmake'
+      name: Build + install (nmake)
+      run: |
+        ls -l
+        nmake
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
