@@ -74,12 +74,12 @@ jobs:
       name: Environment script
       run: |
         "${{ matrix.config.environment_script }}"
-    - if: ${{ matrix.config.configure_method }} && ${{ matrix.configure_method.build_method }} == "cmake" && ${{ matrix.config.cmake_generator }}
+    - if: '${{ matrix.configure_method.build_method }} == "cmake"'
       name: Configure (CMake)
       run: |
         echo Configure method: ${{ matrix.configure_method.build_method }}
         cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF
-    - if: ${{ matrix.config.build_method }} && ${{ matrix.config.build_method }} == "make"
+    - if: '${{ matrix.config.build_method }} == "make"'
       name: Compile, install, package
       run: |
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
