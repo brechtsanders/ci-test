@@ -65,15 +65,18 @@ jobs:
             name: "Windows MSVC (cmake)", artifact: "Windows-MSVC-cmake.tar.xz",
             os: windows-latest,
             cc: "cl", cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+#            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
             configure_method: "cmake", build_method: "nmake", cmake_generator: "NMake Makefiles"
           }
     steps:
     - uses: actions/checkout@v1
-    - if: matrix.config.environment_script != ''
-      name: Environment script
-      run: |
-        "${{ matrix.config.environment_script }}"
+#    - if: matrix.config.environment_script != ''
+#      name: Environment script
+#      run: |
+#        "${{ matrix.config.environment_script }}"
+    - if: matrix.config.cc == 'cl'
+      name: Add MSVC to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
