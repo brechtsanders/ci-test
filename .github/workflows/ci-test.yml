@@ -56,7 +56,7 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-    - if: contains(${{ matrix.config.name }}, 'macOS')
+    - if: contains(matrix.config.name, 'macOS')
       name: Compile, install, package
       run: |
         echo "${{ matrix.config.name }}"
