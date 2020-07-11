@@ -36,7 +36,7 @@ jobs:
             os: windows-latest,
             cc: "cl", cxx: "cl",
             environment_script: '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"',
-            configure_method: "", build_method: "make"
+            configure_method: "cmake", build_method: "nmake"
           }
         - {
             name: "Windows MinGW (make)", artifact: "Windows-MinGW.tar.bz2",
@@ -61,8 +61,7 @@ jobs:
     - if: ${{ matrix.config.build_method }} == "make"
       name: Compile, install, package
       run: |
-        type "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvarsall.bat"
-        ${{ matrix.config.environment_script }}
+        #${{ matrix.config.environment_script }}
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Pack
