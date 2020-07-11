@@ -74,7 +74,7 @@ jobs:
       name: Environment script
       run: |
         "${{ matrix.config.environment_script }}"
-    - if: ${{ eq matrix.configure_method.build_method "cmake" }}
+    - if: ${{ matrix.configure_method.build_method }} == "cmake"
       name: Configure (CMake)
       run: |
         echo Configure method: ${{ matrix.configure_method.build_method }}
