@@ -75,11 +75,12 @@ jobs:
 #      run: |
 #        "${{ matrix.config.environment_script }}"
     - name: Initialize
-      run: |
-        set MAKEDIR=.
+      with:
+        MAKEDIR=.
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
-#      arch: amd64
+      with:
+        arch: 'amd64'
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
