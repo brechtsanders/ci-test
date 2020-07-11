@@ -82,6 +82,8 @@ jobs:
       name: Configure
       env:
         MAKEDIR: .
+      run: |
+        echo MAKEDIR=$MAKEDIR
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       env:
