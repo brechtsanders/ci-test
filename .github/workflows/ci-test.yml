@@ -74,11 +74,6 @@ jobs:
 #      name: Environment script
 #      run: |
 #        "${{ matrix.config.environment_script }}"
-    - name: Initialize
-      with:
-        MAKEDIR=.
-      run: |
-        echo $MAKEDIR
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
