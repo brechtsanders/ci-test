@@ -90,8 +90,9 @@ jobs:
       name: Build + install (nmake)
       run: |
         dir
+        dir build_temp
         nmake
-        nmake /?
+        nmake /NOLOGO
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
