@@ -41,15 +41,15 @@ jobs:
             name: "Windows MinGW (make)", artifact: "Windows-MinGW.tar.bz2",
             os: windows-latest,
             cc: "gcc", cxx: "g++"
-            env:
-              TEST: 1
+            variables:
+              TEST: "1"
           }
         - {
             name: "Ubuntu GCC (make)", artifact: "Linux.tar.bz2",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++"
-            env:
-              TEST: 2
+            variables:
+              TEST: "2"
           }
         - {
             name: "macOS Clang (make)", artifact: "macOS.tar.bz2",
