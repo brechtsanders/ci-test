@@ -89,8 +89,9 @@ jobs:
     - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
-        ls -l
+        dir
         nmake
+        nmake /?
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
