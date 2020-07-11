@@ -90,14 +90,14 @@ jobs:
     - if: matrix.config.build_method == 'make'
       name: Build + install (make)
       run: |
-        make -C$MAKEDIR install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
+        make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
     - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
         dir
         dir build_temp
         nmake
-        nmake /NOLOGO /F %MAKEDIR%/Makefile
+        nmake /NOLOGO /F ${{ env.MAKEDIR }}/Makefile
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
