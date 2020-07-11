@@ -76,7 +76,7 @@ jobs:
 #        "${{ matrix.config.environment_script }}"
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
-      arch: amd64
+#      arch: amd64
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
