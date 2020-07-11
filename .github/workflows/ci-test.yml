@@ -75,7 +75,8 @@ jobs:
 #      run: |
 #        "${{ matrix.config.environment_script }}"
     - if: matrix.config.cc == 'cl'
-      uses: microsoft/setup-msbuild@v1.0.0
+      #uses: microsoft/setup-msbuild@v1.0.0
+      uses: ilammy/msvc-dev-cmd@v1
     - if: matrix.config.configure_method == 'cmake'
       name: Configure (CMake)
       run: |
