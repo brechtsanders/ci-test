@@ -62,15 +62,19 @@ jobs:
             configure_method: "cmake", build_method: "make", cmake_generator: "MSYS Makefiles"
           }
         - {
-            name: 'Windows MSVC (cmake)', artifact: 'Windows-MSVC-cmake.tar.xz',
+            name: "Windows MSVC (cmake)", artifact: "Windows-MSVC-cmake.tar.xz",
             os: windows-latest,
-            cc: 'cl', cxx: 'cl',
-            environment_script: '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"',
+            cc: "cl", cxx: "cl",
+            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
             configure_method: "cmake", build_method: "nmake", cmake_generator: "NMake Makefiles"
           }
     steps:
     - uses: actions/checkout@v1
-    - if: ${{ matrix.config.configure_method }} == 'cmake'
+    - if: ${{ matrix.config.environment_script }} != ""
+      name: Environment script
+      run: |
+        "${{ matrix.config.environment_script }}"
+    - if: ${{ matrix.config.configure_method }} == "cmake"
       name: Configure (CMake)
       run: |
         cmake -G"${{ matrix.config.cmake_generator }}" -DCMAKE_INSTALL_PREFIX:PATH=build_result \
@@ -78,10 +82,9 @@ jobs:
           -DBUILD_SHARED:BOOL=ON \
           -DBUILD_UTILS:BOOL=ON \
           -DBUILD_DOCUMENTATION:BOOL=OFF
-    - if: ${{ matrix.config.build_method }} == 'make'
+    - if: ${{ matrix.config.build_method }} == "make"
       name: Compile, install, package
       run: |
-        #${{ matrix.config.environment_script }}
         make install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
     - name: Pack
