@@ -32,13 +32,6 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows MSVC (make)", artifact: "Windows-MSVC.tar.xz",
-            os: windows-latest,
-            cc: "cl", cxx: "cl",
-            environment_script: '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"',
-            configure_method: "cmake", build_method: "nmake"
-          }
-        - {
             name: "Windows MinGW (make)", artifact: "Windows-MinGW.tar.bz2",
             os: windows-latest,
             cc: "gcc", cxx: "g++",
@@ -56,8 +49,25 @@ jobs:
             cc: "clang", cxx: "clang++",
             configure_method: "", build_method: "make"
           }
+        - {
+            name: "Windows MinGW (cmake)", artifact: "Windows-MinGW.tar.bz2",
+            os: windows-latest,
+            cc: "gcc", cxx: "g++",
+            configure_method: "cmake", build_method: "make"
+          }
+        - {
+            name: "Windows MSVC (cmake)", artifact: "Windows-MSVC.tar.xz",
+            os: windows-latest,
+            cc: "cl", cxx: "cl",
+            environment_script: '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"',
+            configure_method: "cmake", build_method: "nmake"
+          }
     steps:
     - uses: actions/checkout@v1
+    - if: ${{ matrix.config.configure_method }} == "cmake"
+      name: Configure (CMake)
+      run: |
+        PATH=$(pwd)/win32bin/cmake-$VERSION-win32-x86/bin:$PATH cmake.exe -GMakefiles -DCMAKE_INSTALL_PREFIX:PATH=build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF
     - if: ${{ matrix.config.build_method }} == "make"
       name: Compile, install, package
       run: |
