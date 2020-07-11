@@ -94,9 +94,6 @@ jobs:
     - if: matrix.config.build_method == 'nmake'
       name: Build + install (nmake)
       run: |
-        dir
-        dir build_temp
-        nmake
         nmake /NOLOGO /F ${{ env.MAKEDIR }}/Makefile
     - name: Pack
       run: |
