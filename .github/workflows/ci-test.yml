@@ -38,6 +38,12 @@ jobs:
             configure_method: "", build_method: "make"
           }
         - {
+            name: "winlibs 64-bit", artifact: "win64-winlibs.tar.bz2",
+            os: windows-latest,
+            cc: "gcc.exe", cxx: "g++.exe", winlibs_bits: "64", winlibs_url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/10.1.1-snapshot20200704-7.0.0/winlibs-x86_64-posix-seh-gcc-10.1.1-snapshot20200704-mingw-w64-7.0.0-r1.7z",
+            configure_method: "", build_method: "make"
+          }
+        - {
             name: "Windows MinGW (make)", artifact: "win64-MinGW.tar.bz2",
             os: windows-latest,
             cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
@@ -116,10 +122,7 @@ jobs:
         echo "::set-env name=MAKEDIR::build_temp"
     - if: matrix.config.build_method == 'make'
       name: Build + install (make)
-      shell: cmd
       run: |
-        set
-        dir D:\Prog\winlibs\bin
         ${{ matrix.config.cc }} --version
         make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
     - if: matrix.config.build_method == 'nmake'
