@@ -56,6 +56,12 @@ jobs:
             configure_method: "cmake", build_method: "make", cmake_generator: "Unix Makefiles"
           }
         - {
+            name: "Windows 32-bit MinGW (cmake+make)", artifact: "Windows-MinGW-cmake.tar.bz2",
+            os: windows-latest,
+            cc: "i686-w64-mingw32-gcc.exe", cxx: "i686-w64-mingw32-g++.exe",
+            configure_method: "cmake", build_method: "make", cmake_generator: "MSYS Makefiles"
+          }
+        - {
             name: "Windows MinGW (cmake+make)", artifact: "Windows-MinGW-cmake.tar.bz2",
             os: windows-latest,
             cc: "gcc", cxx: "g++",
