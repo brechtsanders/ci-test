@@ -101,8 +101,8 @@ jobs:
         7z x -y -bd -oD:\Prog\winlibs winlibs.7z
         rem Remove-Item winlibs.7z
         DEL /q winlibs.7z
-        IF EXISTS D:\Prog\winlibs\mingw32\bin ECHO "::add-path::D:\Prog\winlibs\mingw32\bin"
-        IF EXISTS D:\Prog\winlibs\mingw64\bin ECHO "::add-path::D:\Prog\winlibs\mingw64\bin"
+        IF EXIST D:\Prog\winlibs\mingw32\bin ECHO "::add-path::D:\Prog\winlibs\mingw32\bin"
+        IF EXIST D:\Prog\winlibs\mingw64\bin ECHO "::add-path::D:\Prog\winlibs\mingw64\bin"
         rem echo "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
