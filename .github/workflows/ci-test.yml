@@ -121,6 +121,9 @@ jobs:
     - if: matrix.config.build_method == 'make'
       name: Build + install (make)
       run: |
+        set
+        ls D:\Prog\winlibs
+        which gcc.exe
         ${{ matrix.config.cc }} --version
         make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
     - if: matrix.config.build_method == 'nmake'
