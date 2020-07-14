@@ -34,7 +34,7 @@ jobs:
         - {
             name: "winlibs 32-bit", artifact: "win32-winlibs.tar.bz2",
             os: windows-latest,
-            cc: "gcc.exe", cxx: "g++.exe", winlibs_bits: "32", winlibs_url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/10.1.1-snapshot20200704-7.0.0/winlibs-i686-posix-dwarf-gcc-10.1.1-snapshot20200704-mingw-w64-7.0.0-r1.7z",
+            cc: "gcc.exe", cxx: "g++.exe", winlibs_url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/10.1.1-snapshot20200704-7.0.0/winlibs-i686-posix-dwarf-gcc-10.1.1-snapshot20200704-mingw-w64-7.0.0-r1.7z",
             configure_method: "", build_method: "make"
           }
         - {
@@ -95,12 +95,15 @@ jobs:
 #        "${{ matrix.config.environment_script }}"
     - if: contains( matrix.config.name, 'winlibs' )
       name: Install winlibs
-      #shell: cmd
+      shell: cmd
       run: |
         curl -k -L -# -o winlibs.7z ${{ matrix.config.winlibs_url }}
         7z x -y -bd -oD:\Prog\winlibs winlibs.7z
-        Remove-Item winlibs.7z
-        echo "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}"
+        rem Remove-Item winlibs.7z
+        DEL /q winlibs.7z
+        IF EXISTS D:\Prog\winlibs\mingw32\bin ECHO "::add-path::D:\Prog\winlibs\mingw32\bin"
+        IF EXISTS D:\Prog\winlibs\mingw64\bin ECHO "::add-path::D:\Prog\winlibs\mingw64\bin"
+        rem echo "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
@@ -120,7 +123,7 @@ jobs:
       shell: cmd
       run: |
         set
-        dir D:\Prog\winlibs
+        dir D:\Prog\winlibs\bin
         ${{ matrix.config.cc }} --version
         make -C${{ env.MAKEDIR }} install PREFIX=build_result DOXYGEN= CC=${{ matrix.config.cc }}
     - if: matrix.config.build_method == 'nmake'
