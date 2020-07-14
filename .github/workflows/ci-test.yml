@@ -32,37 +32,37 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows MinGW (make)", artifact: "Windows-MinGW.tar.bz2",
+            name: "Windows MinGW (make)", artifact: "win64-MinGW.tar.bz2",
             os: windows-latest,
-            cc: "gcc", cxx: "g++",
+            cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
             configure_method: "", build_method: "make"
           }
         - {
-            name: "Ubuntu GCC (make)", artifact: "Linux.tar.bz2",
+            name: "Ubuntu GCC (make)", artifact: "linux.tar.bz2",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++",
             configure_method: "", build_method: "make"
           }
         - {
-            name: "macOS Clang (make)", artifact: "macOS.tar.bz2",
+            name: "macOS Clang (make)", artifact: "macos.tar.bz2",
             os: macos-latest,
             cc: "clang", cxx: "clang++",
             configure_method: "", build_method: "make"
           }
         - {
-            name: "Ubuntu GCC (cmake+make)", artifact: "Linux-cmake.tar.bz2",
+            name: "Ubuntu GCC (cmake+make)", artifact: "linux-cmake.tar.bz2",
             os: ubuntu-latest,
             cc: "gcc", cxx: "g++",
             configure_method: "cmake", build_method: "make", cmake_generator: "Unix Makefiles"
           }
 #        - {
-#            name: "Windows 32-bit MinGW (cmake+make)", artifact: "Windows-MinGW-cmake.tar.bz2",
+#            name: "Windows 32-bit MinGW (cmake+make)", artifact: "win32-MinGW-cmake.tar.bz2",
 #            os: windows-latest,
 #            cc: "i686-w64-mingw32-gcc.exe", cxx: "i686-w64-mingw32-g++.exe",
 #            configure_method: "cmake", build_method: "make", cmake_generator: "MSYS Makefiles"
 #          }
         - {
-            name: "Windows 64-bit MinGW (cmake+make)", artifact: "Windows-MinGW-cmake.tar.bz2",
+            name: "Windows 64-bit MinGW (cmake+make)", artifact: "win64-MinGW-cmake.tar.bz2",
             os: windows-latest,
             cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
             configure_method: "cmake", build_method: "make", cmake_generator: "MSYS Makefiles"
