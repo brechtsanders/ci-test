@@ -84,7 +84,7 @@ jobs:
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
-        arch: ${{ matrix.config.arch }}
+        arch: "${{ matrix.config.arch }}"
     - if: matrix.config.configure_method != 'cmake'
       name: Configure
       run: |
