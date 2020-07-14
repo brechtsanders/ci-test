@@ -32,6 +32,12 @@ jobs:
       matrix:
         config:
         - {
+            name: "winlibs 32-bit", artifact: "win32-winlibs.tar.bz2",
+            os: windows-latest,
+            cc: "gcc.exe", cxx: "g++.exe",
+            configure_method: "", build_method: "make"
+          }
+        - {
             name: "Windows MinGW (make)", artifact: "win64-MinGW.tar.bz2",
             os: windows-latest,
             cc: "x86_64-w64-mingw32-gcc.exe", cxx: "x86_64-w64-mingw32-g++.exe",
@@ -87,6 +93,10 @@ jobs:
 #      name: Environment script
 #      run: |
 #        "${{ matrix.config.environment_script }}"
+    - if: contains( matrix.config.name, 'winlibs' )
+      name: Install winlibs
+      run: |
+        choco list --local-only
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
