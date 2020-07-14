@@ -97,7 +97,8 @@ jobs:
       name: Install winlibs
       run: |
         7z --help
-        choco uninstall mingw -y -a -x
+        wget --help
+        curl --help
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
