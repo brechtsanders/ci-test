@@ -96,9 +96,9 @@ jobs:
     - if: contains( matrix.config.name, 'winlibs' )
       name: Install winlibs
       run: |
-        curl -k -L -o winlibs.7z ${{ matrix.config.winlibs_url }}
+        curl -k -L -# -o winlibs.7z ${{ matrix.config.winlibs_url }}
         7z x -y -bd -oD:\Prog\winlibs winlibs.7z
-        del /q winlibs.7z
+        rm -f winlibs.7z
         echo "::set-env name=PATH::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }};%PATH%"
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
