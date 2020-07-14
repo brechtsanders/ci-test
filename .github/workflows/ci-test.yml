@@ -96,9 +96,8 @@ jobs:
     - if: contains( matrix.config.name, 'winlibs' )
       name: Install winlibs
       run: |
-        choco list --local-only
-        #choco uninstall mingw -y -a -x --no-progress
         7z --help
+        choco uninstall mingw -y -a -x
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
