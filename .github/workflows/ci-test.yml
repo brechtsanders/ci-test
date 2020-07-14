@@ -62,9 +62,16 @@ jobs:
             configure_method: "cmake", build_method: "make", cmake_generator: "MSYS Makefiles"
           }
         - {
-            name: "Windows MSVC (cmake)", artifact: "Windows-MSVC-cmake.tar.xz",
+            name: "Windows 32-bit MSVC (cmake)", artifact: "win32-MSVC-cmake.tar.xz",
             os: windows-latest,
-            cc: "cl", cxx: "cl",
+            cc: "cl", cxx: "cl", arch="x86",
+#            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+            configure_method: "cmake", build_method: "nmake", cmake_generator: "NMake Makefiles"
+          }
+        - {
+            name: "Windows 64-bit MSVC (cmake)", artifact: "win64-MSVC-cmake.tar.xz",
+            os: windows-latest,
+            cc: "cl", cxx: "cl", arch="amd64",
 #            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
             configure_method: "cmake", build_method: "nmake", cmake_generator: "NMake Makefiles"
           }
@@ -77,7 +84,7 @@ jobs:
     - if: matrix.config.cc == 'cl'
       uses: ilammy/msvc-dev-cmd@v1
       with:
-        arch: 'amd64'
+        arch: ${{ matrix.config.arch }}
     - if: matrix.config.configure_method != 'cmake'
       name: Configure
       run: |
