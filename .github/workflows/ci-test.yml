@@ -131,7 +131,8 @@ jobs:
         popd
     - name: Test
       run: |
-        cd build_result/lib && ../bin/myapplication
+        ( ls -1 build_result/lib/*.so &>/dev/null && export LD_LIBRARY_PATH=$(pwd)/build_result/lib:$LD_LIBRARY_PATH ) || echo ""
+        build_result/bin/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
