@@ -132,6 +132,7 @@ jobs:
         popd
     - name: Test
       run: |
+        echo Running test application:
         build_result/myapplication
     - name: Pack
       run: |
