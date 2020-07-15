@@ -131,8 +131,7 @@ jobs:
         popd
     - name: Test
       run: |
-        cd build_result/lib
-        ../bin/myapplication
+        cd build_result/lib && ../bin/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
