@@ -131,7 +131,7 @@ jobs:
         popd
     - name: Test
       run: |
-        /sbin/ldconfig build_result/lib || echo "No ldconfig done"
+        /sbin/ldconfig $(pwd)/build_result/lib || echo "No ldconfig done"
         build_result/bin/myapplication
     - name: Pack
       run: |
