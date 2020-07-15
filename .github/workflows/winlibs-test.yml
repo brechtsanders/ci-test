@@ -39,11 +39,10 @@ jobs:
       run: |
         curl -k -L -# -o winlibs.7z ${{ matrix.config.winlibs_url }}
         7z x -y -bd -oD:\Prog\winlibs winlibs.7z
-        rem Remove-Item winlibs.7z
         DEL /Q winlibs.7z
-        echo "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
+        ECHO "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
     - name: Test
       shell: cmd
       run: |
         gcc --version
-        dir C:\msys64
+        REM dir C:\msys64
