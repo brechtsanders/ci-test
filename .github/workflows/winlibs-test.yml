@@ -41,6 +41,10 @@ jobs:
         7z x -y -bd -oD:\Prog\winlibs winlibs.7z
         DEL /Q winlibs.7z
         ECHO "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
+    - name: Add winlibs to path
+      shell: cmd
+      run: |
+        echo "::add-path::D:\Prog\winlibs\mingw${{ matrix.config.winlibs_bits }}\bin"
     - name: Test
       shell: cmd
       run: |
