@@ -95,10 +95,6 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v1
-#    - if: matrix.config.environment_script != ''
-#      name: Environment script
-#      run: |
-#        "${{ matrix.config.environment_script }}"
     - if: contains( matrix.config.name, 'winlibs' )
       name: Install winlibs
       run: |
