@@ -1,5 +1,4 @@
-name: CI test
-#name: GitHub-CI for ci-test
+name: GitHub-CI for ci-test
 
 on:
   push:
@@ -130,9 +129,9 @@ jobs:
         pushd ${{ env.MAKEDIR }}
         nmake /NOLOGO install
         popd
-    - name: Test
-      run: |
-        build_result/bin/myapplication
+#    - name: Test
+#      run: |
+#        build_result/bin/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
