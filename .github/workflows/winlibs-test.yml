@@ -43,3 +43,4 @@ jobs:
     - name: Test
       run: |
         gcc --version
+        date
