@@ -3,9 +3,10 @@ name: CI test
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
+#  pull_request:
+#    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 #jobs:
@@ -130,10 +131,9 @@ jobs:
         pushd ${{ env.MAKEDIR }}
         nmake /NOLOGO install
         popd
-#    - name: Test
-#      run: |
-#        ls -l build_result/myapplication
-#        build_result/myapplication
+    - name: Test
+      run: |
+        build_result/bin/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
