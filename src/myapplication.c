@@ -13,13 +13,8 @@ const char* get_compiler ()
 {
   //see also: https://sourceforge.net/p/predef/wiki/Compilers/
   return
-# if defined(__GNUC__)
-    "GCC "
-#   if defined(__GNUC_PATCHLEVEL__)
-      VERSION3_STRINGIZE(__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__)
-#   else
-      VERSION2_STRINGIZE(__GNUC__, __GNUC_MINOR__)
-#   endif
+# if defined(__clang__)
+    "Clang " VERSION3_STRINGIZE(__clang_major__, __clang_minor__, __clang_patchlevel__)
 #   if defined(__MINGW64_VERSION_MAJOR)
       " (MinGW-w64 " VERSION2_STRINGIZE(__MINGW64_VERSION_MAJOR, __MINGW64_VERSION_MINOR)
 #     if defined(__MINGW64__)
@@ -31,8 +26,13 @@ const char* get_compiler ()
 #   elif defined(__MINGW32_MAJOR_VERSION)
       " (MinGW32 " VERSION2_STRINGIZE(__MINGW32_MAJOR_VERSION, __MINGW32_MINOR_VERSION) ")"
 #   endif
-# elif defined(__clang__)
-    "Clang " VERSION3_STRINGIZE(__clang_major__, __clang_minor__, __clang_patchlevel__)
+# elif defined(__GNUC__)
+    "GCC "
+#   if defined(__GNUC_PATCHLEVEL__)
+      VERSION3_STRINGIZE(__GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__)
+#   else
+      VERSION2_STRINGIZE(__GNUC__, __GNUC_MINOR__)
+#   endif
 #   if defined(__MINGW64_VERSION_MAJOR)
       " (MinGW-w64 " VERSION2_STRINGIZE(__MINGW64_VERSION_MAJOR, __MINGW64_VERSION_MINOR)
 #     if defined(__MINGW64__)
