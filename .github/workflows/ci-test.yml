@@ -1,5 +1,4 @@
-#name: GitHub-CI for ci-test
-name: CI test
+name: GitHub-CI for ci-test
 
 on:
   push:
