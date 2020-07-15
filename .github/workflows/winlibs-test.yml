@@ -27,7 +27,13 @@ jobs:
             cc: "gcc.exe", cxx: "g++.exe", winlibs_bits: "64", winlibs_url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/10.1.1-snapshot20200704-7.0.0/winlibs-x86_64-posix-seh-gcc-10.1.1-snapshot20200704-mingw-w64-7.0.0-r1.7z",
           }
     steps:
-    - if: contains( matrix.config.name, 'winlibs' )
+    - name: Cache winlibs
+      id: cache-winlibs
+      uses: actions/cache@v2
+      with:
+        path: D:\Prog\winlibs
+        key: winlibs${{ matrix.config.winlibs_bits }}
+    - if: steps.cache-winlibs.outputs.cache-hit != 'true'
       name: Install winlibs
       run: |
         curl -k -L -# -o winlibs.7z ${{ matrix.config.winlibs_url }}
