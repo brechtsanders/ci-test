@@ -131,7 +131,7 @@ jobs:
         popd
     - name: Test
       run: |
-        ( ls -1 build_result/lib/*.so &>/dev/null && export LD_LIBRARY_PATH=$(pwd)/build_result/lib:$LD_LIBRARY_PATH ) || echo "" > /dev/null
+        export LD_LIBRARY_PATH=build_result/lib:${{ env.LD_LIBRARY_PATH }}
         build_result/bin/myapplication
     - name: Pack
       run: |
