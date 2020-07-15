@@ -130,6 +130,9 @@ jobs:
         pushd ${{ env.MAKEDIR }}
         nmake /NOLOGO install
         popd
+    - name: Test
+      run: |
+        build_result/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
