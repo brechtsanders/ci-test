@@ -47,4 +47,5 @@ jobs:
       shell: cmd
       run: |
         gcc --version
+        echo %NUMBER_OF_PROCESSORS%
         REM dir C:\msys64
