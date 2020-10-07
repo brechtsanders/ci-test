@@ -1,4 +1,4 @@
-name: Manually triggered workflow 1
+name: Manually triggered workflow
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,13 @@ on:
         required: false
 
 jobs:
-  say_hello:
+  workflow2:
+    runs-on: ubuntu-latest
+    needs: workflow
+    steps:
+    - run: |
+        echo "Workflow 2 - depends on 1"
+  workflow1:
     runs-on: ubuntu-latest
     steps:
     - run: |
