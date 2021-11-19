@@ -89,7 +89,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-DBUILD_PEDEPS_STATIC" />
+			<Add option="-DBUILD_MYLIBRARY_STATIC" />
 			<Add directory="../include" />
 		</Compiler>
 		<Unit filename="../include/mylibrary.h" />

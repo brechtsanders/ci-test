@@ -1,3 +1,10 @@
+0.0.4
+
+2021-11-19  Brecht Sanders  https://github.com/brechtsanders/
+
+  * fixed in -DBUILD_MYLIBRARY_STATIC in mylibrary_static.cbp
+  * fixed version numbers in mylibrary.h
+
 0.0.3
 
 2020-03-02  Brecht Sanders  https://github.com/brechtsanders/
