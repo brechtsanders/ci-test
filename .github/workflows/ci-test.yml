@@ -23,42 +23,42 @@ jobs:
               cc: x86_64-w64-mingw32-gcc.exe,
               cxx: x86_64-w64-mingw32-g++.exe
             }
-#          - {
-#              name: "Windows MinGW-w64 GCC 32-bit",
-#              os: windows-latest,
-#              shell: 'msys2 {0}',
-#              #cmake_generator: "MSYS Makefiles",
-#              cmake_generator: "Ninja",
-#              msystem: MINGW32,
-#              arch: i686,
-#              cc: i686-w64-mingw32-gcc.exe,
-#              cxx: i686-w64-mingw32-g++.exe
-#            }
-#          - {
-#              name: "Ubuntu Linux (GCC)",
-#              os: ubuntu-latest,
-#              shell: bash,
-#              #cmake_generator: "Unix Makefiles",
-#              cmake_generator: "Ninja",
-#              cc: gcc,
-#              cxx: g++
-#            }
-#              name: "Ubuntu Linux (CLang)",
-#              os: ubuntu-latest,
-#              shell: bash,
-#              #cmake_generator: "Unix Makefiles",
-#              cmake_generator: "Ninja",
-#              cc: clang,
-#              cxx: clang++
-#            }
-#          - {
-#              name: "macOS (CLang)",
-#              os: macos-latest,
-#              shell: bash,
-#              cmake_generator: "Unix Makefiles",
-#              cc: clang,
-#              cxx: clang++
-#            }
+          - {
+              name: "Windows MinGW-w64 GCC 32-bit",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              #cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
+              msystem: MINGW32,
+              arch: i686,
+              cc: i686-w64-mingw32-gcc.exe,
+              cxx: i686-w64-mingw32-g++.exe
+            }
+          - {
+              name: "Ubuntu Linux (GCC)",
+              os: ubuntu-latest,
+              shell: bash,
+              #cmake_generator: "Unix Makefiles",
+              cmake_generator: "Ninja",
+              cc: gcc,
+              cxx: g++
+            }
+              name: "Ubuntu Linux (CLang)",
+              os: ubuntu-latest,
+              shell: bash,
+              #cmake_generator: "Unix Makefiles",
+              cmake_generator: "Ninja",
+              cc: clang,
+              cxx: clang++
+            }
+          - {
+              name: "macOS (CLang)",
+              os: macos-latest,
+              shell: bash,
+              cmake_generator: "Unix Makefiles",
+              cc: clang,
+              cxx: clang++
+            }
     runs-on: ${{ matrix.config.os }}
     defaults:
       run:
@@ -79,14 +79,14 @@ jobs:
           mingw-w64-${{ matrix.config.arch }}-cmake
           mingw-w64-${{ matrix.config.arch }}-ninja
           mingw-w64-${{ matrix.config.arch }}-toolchain
-#    - if: matrix.config.os == 'ubuntu-latest'
-#      name: Install build dependencies (Linux)
-#      run: |
-#        sudo apt-get install ninja-build
-#    - if: matrix.config.os == 'macos-latest'
-#      name: Install build dependencies (macOS)
-#      run: |
-#        brew install ninja
+    - if: matrix.config.os == 'ubuntu-latest'
+      name: Install build dependencies (Linux)
+      run: |
+        sudo apt-get install ninja-build
+    - if: matrix.config.os == 'macos-latest'
+      name: Install build dependencies (macOS)
+      run: |
+        brew install ninja
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
