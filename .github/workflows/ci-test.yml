@@ -13,28 +13,6 @@ jobs:
       matrix:
         config:
           - {
-              name: "Windows 64-bit (gcc)",
-              os: windows-latest,
-              shell: 'msys2 {0}',
-              #cmake_generator: "MSYS Makefiles",
-              cmake_generator: "Ninja",
-              msystem: MINGW64,
-              arch: x86_64,
-              cc: x86_64-w64-mingw32-gcc.exe,
-              cxx: x86_64-w64-mingw32-g++.exe
-            }
-          - {
-              name: "Windows 32-bit (gcc)",
-              os: windows-latest,
-              shell: 'msys2 {0}',
-              #cmake_generator: "MSYS Makefiles",
-              cmake_generator: "Ninja",
-              msystem: MINGW32,
-              arch: i686,
-              cc: i686-w64-mingw32-gcc.exe,
-              cxx: i686-w64-mingw32-g++.exe
-            }
-          - {
               name: "Ubuntu Linux (gcc)",
               os: ubuntu-latest,
               shell: bash,
@@ -60,6 +38,29 @@ jobs:
               cc: clang,
               cxx: clang++
             }
+          - {
+              name: "Windows 64-bit (gcc)",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              #cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
+              msystem: MINGW64,
+              arch: x86_64,
+              cc: x86_64-w64-mingw32-gcc.exe,
+              cxx: x86_64-w64-mingw32-g++.exe
+            }
+          - {
+              name: "Windows 32-bit (gcc)",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              #cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
+              msystem: MINGW32,
+              arch: i686,
+              cc: i686-w64-mingw32-gcc.exe,
+              cxx: i686-w64-mingw32-g++.exe
+            }
+    name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     defaults:
       run:
@@ -69,6 +70,14 @@ jobs:
       CXX: ${{ matrix.config.cxx }}
 
     steps:
+    - if: matrix.config.os == 'ubuntu-latest'
+      name: Install build dependencies (Linux)
+      run: |
+        sudo apt-get install cmake ninja-build
+    - if: matrix.config.os == 'macos-latest'
+      name: Install build dependencies (macOS)
+      run: |
+        brew install ninja
     - if: matrix.config.os == 'windows-latest'
       name: Install build dependencies (Windows)
       uses: msys2/setup-msys2@v2
@@ -80,14 +89,6 @@ jobs:
           mingw-w64-${{ matrix.config.arch }}-cmake
           mingw-w64-${{ matrix.config.arch }}-ninja
           mingw-w64-${{ matrix.config.arch }}-toolchain
-    - if: matrix.config.os == 'ubuntu-latest'
-      name: Install build dependencies (Linux)
-      run: |
-        sudo apt-get install cmake ninja-build
-    - if: matrix.config.os == 'macos-latest'
-      name: Install build dependencies (macOS)
-      run: |
-        brew install ninja
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
