@@ -16,19 +16,21 @@ jobs:
               os: windows-latest,
               shell: 'msys2 {0}',
               cmake_generator: "Ninja",
+              msystem: MINGW64,
               arch: x86_64,
               cc: x86_64-w64-mingw32-gcc.exe,
               cxx: x86_64-w64-mingw32-g++.exe
             }
-#          - {
-#              name: "Windows MinGW-w64 GCC 32-bit",
-#              os: windows-latest,
-#              shell: 'msys2 {0}',
-#              cmake_generator: "Ninja",
-#              arch: i686,
-#              cc: i686-w64-mingw32-gcc.exe,
-#              cxx: i686-w64-mingw32-g++.exe
-#            }
+          - {
+              name: "Windows MinGW-w64 GCC 32-bit",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              cmake_generator: "Ninja",
+              msystem: MINGW32,
+              arch: i686,
+              cc: i686-w64-mingw32-gcc.exe,
+              cxx: i686-w64-mingw32-g++.exe
+            }
 #          - {
 #              name: "Ubuntu Linux",
 #              os: ubuntu-latest,
@@ -62,7 +64,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         update: false
-        msystem: MINGW64
+        msystem: ${{ matrix.config.msystem }}
         install: >-
           git
           mingw-w64-x86_64-cmake
