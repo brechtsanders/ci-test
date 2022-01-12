@@ -15,7 +15,7 @@ jobs:
           - {
               os: windows-latest,
               shell: 'msys2 {0}',
-              cmake_generator: "MSYS Makefiles"
+              cmake_generator: "Ninja"
             }
 #         - {
 #             os: ubuntu-latest,
@@ -55,12 +55,17 @@ jobs:
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-ninja
     - uses: actions/checkout@v1
-    - name: Configure (CMake)
+    - name: Configure (cmake)
       run: |
         cmake.exe -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
-    - name: Build (make)
+    - if: matrix.sys.cmake_generator != 'Ninja'
+      name: Build (make)
       run: |
         make -Cbuild_temp install/strip
+    - if: matrix.sys.cmake_generator == 'Ninja'
+      name: Build (ninja)
+      run: |
+        ninja -Cbuild_temp install/strip
     - name: Test
       run: |
         LD_LIBRARY_PATH=$PWD/build_result/lib:$LD_LIBRARY_PATH DYLD_LIBRARY_PATH=$PWD/build_result/lib:$DYLD_LIBRARY_PATH build_result/bin/myapplication
