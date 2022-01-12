@@ -34,23 +34,24 @@ jobs:
               cc: i686-w64-mingw32-gcc.exe,
               cxx: i686-w64-mingw32-g++.exe
             }
-#          - {
-#              name: "Ubuntu Linux (gcc)",
-#              os: ubuntu-latest,
-#              shell: bash,
-#              #cmake_generator: "Unix Makefiles",
-#              cmake_generator: "Ninja",
-#              cc: gcc,
-#              cxx: g++
-#            }
-#              name: "Ubuntu Linux (clang)",
-#              os: ubuntu-latest,
-#              shell: bash,
-#              #cmake_generator: "Unix Makefiles",
-#              cmake_generator: "Ninja",
-#              cc: clang,
-#              cxx: clang++
-#            }
+          - {
+              name: "Ubuntu Linux (gcc)",
+              os: ubuntu-latest,
+              shell: bash,
+              #cmake_generator: "Unix Makefiles",
+              cmake_generator: "Ninja",
+              cc: gcc,
+              cxx: g++
+            }
+          - {
+              name: "Ubuntu Linux (clang)",
+              os: ubuntu-latest,
+              shell: bash,
+              #cmake_generator: "Unix Makefiles",
+              cmake_generator: "Ninja",
+              cc: clang,
+              cxx: clang++
+            }
           - {
               name: "macOS (clang)",
               os: macos-latest,
@@ -87,7 +88,7 @@ jobs:
     - if: matrix.config.os == 'macos-latest'
       name: Install build dependencies (macOS)
       run: |
-        brew install cmake ninja
+        brew install ninja
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
