@@ -83,8 +83,7 @@ jobs:
     - if: matrix.config.os == 'ubuntu-latest'
       name: Install build dependencies (Linux)
       run: |
-        sudo apt-get install cmake ninja
-#sudo apt-get install cmake ninja-build
+        sudo apt-get install cmake ninja-build
     - if: matrix.config.os == 'macos-latest'
       name: Install build dependencies (macOS)
       run: |
