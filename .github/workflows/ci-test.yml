@@ -91,7 +91,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
-        cmake.exe -G"${{ matrix.config.cmake_generator }}" \
+        cmake -G"${{ matrix.config.cmake_generator }}" \
          -DCMAKE_C_COMPILER=${{ matrix.config.cc }} \
          -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
          -DCMAKE_INSTALL_PREFIX:PATH=../build_result \
