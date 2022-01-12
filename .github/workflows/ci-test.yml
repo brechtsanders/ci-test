@@ -63,11 +63,4 @@ jobs:
     - name: Test
       run: |
         LD_LIBRARY_PATH=$PWD/build_result/lib:$LD_LIBRARY_PATH build_result/bin/myapplication
-    - name: Pack
-      run: |
-        tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
-    - name: Upload
-      uses: actions/upload-artifact@v1
-      with:
-        path: ./${{ matrix.config.artifact }}
-        name: ${{ matrix.config.artifact }}
+        ninja --version
