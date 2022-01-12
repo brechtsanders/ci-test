@@ -17,16 +17,16 @@ jobs:
               shell: 'msys2 {0}',
               cmake_generator: "MSYS Makefiles"
             }
-          - {
-              os: ubuntu-latest,
-              shell: bash,
-              cmake_generator: "Unix Makefiles"
-            }
-          - {
-              os: macos-latest,
-              shell: bash,
-              cmake_generator: "Unix Makefiles"
-            }
+#         - {
+#             os: ubuntu-latest,
+#             shell: bash,
+#             cmake_generator: "Unix Makefiles"
+#           }
+#         - {
+#             os: macos-latest,
+#             shell: bash,
+#             cmake_generator: "Unix Makefiles"
+#           }
         compiler:
           - {
               cc: gcc,
@@ -57,7 +57,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Configure (CMake)
       run: |
-        cmake -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
+        cmake.exe -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
     - name: Build (make)
       run: |
         make -Cbuild_temp install/strip
