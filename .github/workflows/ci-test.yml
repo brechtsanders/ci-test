@@ -9,13 +9,15 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false          # don't abort other jobs if a job fails
       matrix:
         config:
           - {
               name: "Windows MinGW-w64 GCC 64-bit",
               os: windows-latest,
               shell: 'msys2 {0}',
-              cmake_generator: "Ninja",
+              #cmake_generator: "Ninja",
+              cmake_generator: "MSYS Makefiles",
               msystem: MINGW64,
               arch: x86_64,
               cc: x86_64-w64-mingw32-gcc.exe,
@@ -67,8 +69,8 @@ jobs:
         msystem: ${{ matrix.config.msystem }}
         install: >-
           git
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-ninja
+          mingw-w64-${{ matrix.config.arch }}-cmake
+          mingw-w64-${{ matrix.config.arch }}-ninja
           mingw-w64-${{ matrix.config.arch }}-toolchain
     - uses: actions/checkout@v1
     - name: Configure (cmake)
