@@ -62,7 +62,7 @@ jobs:
         make -Cbuild_temp install/strip
     - name: Test
       run: |
-        LD_LIBRARY_PATH=$PWD/build_result:$LD_LIBRARY_PATH build_result/bin/myapplication
+        LD_LIBRARY_PATH=$PWD/build_result/lib:$LD_LIBRARY_PATH build_result/bin/myapplication
     - name: Pack
       run: |
         tar cfj ./${{ matrix.config.artifact }} --strip-components=1 build_result
