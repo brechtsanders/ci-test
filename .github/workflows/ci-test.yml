@@ -57,7 +57,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
-        cmake.exe -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
+        cmake.exe -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.compiler.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
     - if: matrix.sys.cmake_generator != 'Ninja'
       name: Build (make)
       run: |
