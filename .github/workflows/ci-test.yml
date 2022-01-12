@@ -12,12 +12,30 @@ jobs:
     strategy:
       matrix:
         sys:
-          - { os: windows-latest, shell: 'msys2 {0}' }
-          - { os: ubuntu-latest,  shell: bash  }
-          - { os: macos-latest,   shell: bash  }
+          - {
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              cmake_generator: "MSYS Makefiles"
+            }
+          - {
+              os: ubuntu-latest,
+              shell: bash,
+              cmake_generator: "Unix Makefiles"
+            }
+          - {
+              os: macos-latest,
+              shell: bash,
+              cmake_generator: "Unix Makefiles"
+            }
         compiler:
-          - { cc: gcc,   cxx: g++ }
-          - { cc: clang, cxx: clang++ }
+          - {
+              cc: gcc,
+              cxx: g++
+            }
+          - {
+              cc: clang,
+              cxx: clang++
+            }
     runs-on: ${{ matrix.sys.os }}
     defaults:
       run:
@@ -31,11 +49,11 @@ jobs:
     - name: Configure (CMake)
       run: |
         $CC --version
-        cmake -GNinja -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
+        cmake -G${{ matrix.sys.cmake_generator }} -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
     - name: Build (make)
       run: |
         ${{ matrix.config.cc }} --version
-        ninja -Cbuild_temp
+        make -Cbuild_temp install/strip
     - name: Test
       run: |
         build_result/bin/myapplication
