@@ -15,7 +15,7 @@ jobs:
               name: "Windows MinGW-w64 GCC 64-bit",
               os: windows-latest,
               shell: 'msys2 {0}',
-              cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
               cc: mingw-w64-x86_64-gcc,
               cxx: mingw-w64-x86_64-g++
             }
