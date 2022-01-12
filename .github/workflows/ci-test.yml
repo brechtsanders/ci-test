@@ -8,44 +8,47 @@ on:
 
 jobs:
   build:
-    name: ${{ matrix.sys.os }}-${{ matrix.compiler.cc }}
     strategy:
       matrix:
-        sys:
+        config:
           - {
+              name: "Windows MinGW-w64 GCC 64-bit",
               os: windows-latest,
               shell: 'msys2 {0}',
-              cmake_generator: "Ninja"
+              cmake_generator: "MSYS Makefiles",
+              cc: mingw-w64-x86_64-gcc,
+              cxx: mingw-w64-x86_64-g++
             }
-#         - {
-#             os: ubuntu-latest,
-#             shell: bash,
-#             cmake_generator: "Unix Makefiles"
-#           }
-#         - {
-#             os: macos-latest,
-#             shell: bash,
-#             cmake_generator: "Unix Makefiles"
-#           }
-        compiler:
-          - {
-              cc: gcc,
-              cxx: g++
-            }
-          - {
-              cc: clang,
-              cxx: clang++
-            }
-    runs-on: ${{ matrix.sys.os }}
+#          - {
+#              name: "Ubuntu Linux",
+#              os: ubuntu-latest,
+#              shell: bash,
+#              cmake_generator: "Unix Makefiles",
+#              cc: gcc,
+#              cxx: g++
+##              cc: clang,
+##              cxx: clang++
+#            }
+#          - {
+#              name: "macOS",
+#              os: macos-latest,
+#              shell: bash,
+#              cmake_generator: "Unix Makefiles",
+#              cc: gcc,
+#              cxx: g++
+##              cc: clang,
+##              cxx: clang++
+#            }
+    runs-on: ${{ matrix.config.os }}
     defaults:
       run:
-        shell: ${{ matrix.sys.shell }}
+        shell: ${{ matrix.config.shell }}
     env:
-      CC: ${{ matrix.compiler.cc }}
-      CXX: ${{ matrix.compiler.cxx }}
+      CC: ${{ matrix.config.cc }}
+      CXX: ${{ matrix.config.cxx }}
 
     steps:
-    - if: matrix.sys.os == 'windows-latest'
+    - if: matrix.config.os == 'windows-latest'
       uses: msys2/setup-msys2@v2
       with:
         update: false
@@ -57,12 +60,12 @@ jobs:
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
-        cmake.exe -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.compiler.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
-    - if: matrix.sys.cmake_generator != 'Ninja'
+        cmake.exe -G"${{ matrix.config.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
+    - if: matrix.config.cmake_generator != 'Ninja'
       name: Build (make)
       run: |
         make -Cbuild_temp install/strip
-    - if: matrix.sys.cmake_generator == 'Ninja'
+    - if: matrix.config.cmake_generator == 'Ninja'
       name: Build (ninja)
       run: |
         ninja -Cbuild_temp install/strip
