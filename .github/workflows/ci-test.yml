@@ -34,26 +34,29 @@ jobs:
               cc: i686-w64-mingw32-gcc.exe,
               cxx: i686-w64-mingw32-g++.exe
             }
-#          - {
-#              name: "Ubuntu Linux",
-#              os: ubuntu-latest,
-#              shell: bash,
-#              cmake_generator: "Unix Makefiles",
-#              cc: gcc,
-#              cxx: g++
-##              cc: clang,
-##              cxx: clang++
-#            }
-#          - {
-#              name: "macOS",
-#              os: macos-latest,
-#              shell: bash,
-#              cmake_generator: "Unix Makefiles",
-#              cc: gcc,
-#              cxx: g++
-##              cc: clang,
-##              cxx: clang++
-#            }
+          - {
+              name: "Ubuntu Linux (GCC)",
+              os: ubuntu-latest,
+              shell: bash,
+              cmake_generator: "Unix Makefiles",
+              cc: gcc,
+              cxx: g++
+            }
+              name: "Ubuntu Linux (CLang)",
+              os: ubuntu-latest,
+              shell: bash,
+              cmake_generator: "Ninja",
+              cc: clang,
+              cxx: clang++
+            }
+          - {
+              name: "macOS (CLang)",
+              os: macos-latest,
+              shell: bash,
+              cmake_generator: "Unix Makefiles",
+              cc: clang,
+              cxx: clang++
+            }
     runs-on: ${{ matrix.config.os }}
     defaults:
       run:
