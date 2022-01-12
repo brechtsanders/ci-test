@@ -20,6 +20,15 @@ jobs:
               cc: x86_64-w64-mingw32-gcc.exe,
               cxx: x86_64-w64-mingw32-g++.exe
             }
+          - {
+              name: "Windows MinGW-w64 GCC 32-bit",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              cmake_generator: "Ninja",
+              arch: i686,
+              cc: i686-w64-mingw32-gcc.exe,
+              cxx: i686-w64-mingw32-g++.exe
+            }
 #          - {
 #              name: "Ubuntu Linux",
 #              os: ubuntu-latest,
@@ -56,8 +65,9 @@ jobs:
         msystem: MINGW64
         install: >-
           git
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-ninja
+          mingw-w64-${{ matrix.config.arch }}-cmake
+          mingw-w64-${{ matrix.config.arch }}-ninja
+          mingw-w64-${{ matrix.config.arch }}-toolchain
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
