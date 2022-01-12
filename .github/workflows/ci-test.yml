@@ -16,8 +16,9 @@ jobs:
               os: windows-latest,
               shell: 'msys2 {0}',
               cmake_generator: "Ninja",
-              cc: mingw-w64-x86_64-gcc,
-              cxx: mingw-w64-x86_64-g++
+              arch: x86_64,
+              cc: x86_64-w64-mingw32-gcc.exe,
+              cxx: x86_64-w64-mingw32-g++.exe
             }
 #          - {
 #              name: "Ubuntu Linux",
