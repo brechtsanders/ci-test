@@ -15,7 +15,7 @@ jobs:
           - {
               os: windows-latest,
               shell: 'msys2 {0}',
-              cmake_generator: "MSYS Makefiles"
+              cmake_generator: "Ninja"
             }
           - {
               os: ubuntu-latest,
@@ -48,7 +48,8 @@ jobs:
     - if: matrix.sys.os == 'windows-latest'
       uses: msys2/setup-msys2@v2
       with:
-        update: true
+        update: false
+        msystem: MSYS
         install: >-
           git
           mingw-w64-x86_64-cmake
