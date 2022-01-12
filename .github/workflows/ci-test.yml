@@ -45,7 +45,6 @@ jobs:
       CXX: ${{ matrix.compiler.cxx }}
 
     steps:
-    - uses: actions/checkout@v1
     - if: matrix.sys.os == 'windows-latest'
       uses: msys2/setup-msys2@v2
       with:
@@ -54,6 +53,7 @@ jobs:
           git
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-ninja
+    - uses: actions/checkout@v1
     - name: Configure (CMake)
       run: |
         cmake -G"${{ matrix.sys.cmake_generator }}" -DCMAKE_CC_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} -DCMAKE_INSTALL_PREFIX:PATH=../build_result -DBUILD_STATIC:BOOL=ON -DBUILD_SHARED:BOOL=ON -DBUILD_UTILS:BOOL=ON -DBUILD_DOCUMENTATION:BOOL=OFF -S. -Bbuild_temp
@@ -63,4 +63,3 @@ jobs:
     - name: Test
       run: |
         LD_LIBRARY_PATH=$PWD/build_result/lib:$LD_LIBRARY_PATH build_result/bin/myapplication
-        ninja --version
