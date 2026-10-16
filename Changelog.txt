@@ -1,3 +1,9 @@
+0.0.5
+
+2026-10-16
+
+  * changes ci-test.yml to support MinGW-w64 LLCM/Clang builds and Windows on ARM64
+
 0.0.4
 
 2021-11-19  Brecht Sanders  https://github.com/brechtsanders/

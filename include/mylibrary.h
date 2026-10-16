@@ -34,7 +34,7 @@
 /*! \brief minor version number */
 #define MYLIBRARY_VERSION_MINOR 0
 /*! \brief micro version number */
-#define MYLIBRARY_VERSION_MICRO 4
+#define MYLIBRARY_VERSION_MICRO 5
 /*! @} */
 
 /*! \brief packed version number */

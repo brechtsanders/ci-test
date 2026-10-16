@@ -122,20 +122,19 @@ jobs:
          -DBUILD_SHARED:BOOL=ON \
          -DBUILD_UTILS:BOOL=ON \
          -DBUILD_DOCUMENTATION:BOOL=OFF \
-         -DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5 \
          -S. -Bbuild_temp
 #    - if: matrix.config.cmake_generator != 'Ninja'
 #      name: Build (make)
 #      run: |
 #        make -Cbuild_temp install/strip
-    - if: matrix.config.cmake_generator == 'MinGW Makefiles'
-      name: Build (make)
-      run: |
-        mingw32-make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Unix Makefiles' || matrix.config.cmake_generator == 'MSYS Makefiles'
       name: Build (make)
       run: |
         make -Cbuild_temp install/strip
+    - if: matrix.config.cmake_generator == 'MinGW Makefiles'
+      name: Build (mingw32-make)
+      run: |
+        mingw32-make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Ninja'
       name: Build (ninja)
       run: |
