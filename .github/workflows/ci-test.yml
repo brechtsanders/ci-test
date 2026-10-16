@@ -89,7 +89,7 @@ jobs:
       name: Install build dependencies (macOS)
       run: |
         brew install ninja
-    - if: matrix.config.os == 'windows-latest'
+    - if: startsWith(matrix.config.os, 'windows-')
       name: Install build dependencies (Windows)
       uses: msys2/setup-msys2@v2
       with:
