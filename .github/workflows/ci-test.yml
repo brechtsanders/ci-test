@@ -61,7 +61,18 @@ jobs:
               cxx: i686-w64-mingw32-g++.exe
             }
           - {
-              name: "Windows on ARM (clang)",
+              name: "Windows 64-bit (clang)",
+              os: windows-latest,
+              shell: 'msys2 {0}',
+              #cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
+              msystem: CLANG64,
+              arch: x86_64,
+              cc: x86_64-w64-mingw32-clang.exe,
+              cxx: x86_64-w64-mingw32-clang++.exe
+            }
+          - {
+              name: "Windows on ARM64 (clang)",
               os: windows-11-arm,
               shell: 'msys2 {0}',
               #cmake_generator: "MSYS Makefiles",
@@ -117,7 +128,11 @@ jobs:
 #      name: Build (make)
 #      run: |
 #        make -Cbuild_temp install/strip
-    - if: matrix.config.cmake_generator == 'Unix Makefiles'
+    - if: matrix.config.cmake_generator == 'MinGW Makefiles'
+      name: Build (make)
+      run: |
+        mingw32-make -Cbuild_temp install/strip
+    - if: matrix.config.cmake_generator == 'Unix Makefiles' || matrix.config.cmake_generator == 'MSYS Makefiles'
       name: Build (make)
       run: |
         make -Cbuild_temp install/strip
