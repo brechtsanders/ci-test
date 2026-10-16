@@ -9,13 +9,12 @@ on:
 jobs:
   build:
     strategy:
-      fail-fast: false          # don't abort other jobs if a job fails
+      fail-fast: false          # if a job fails don't abort other jobs
       matrix:
         config:
           - {
               name: "Ubuntu Linux (gcc)",
               os: ubuntu-latest,
-              arch: amd64,
               shell: bash,
               #cmake_generator: "Unix Makefiles",
               cmake_generator: "Ninja",
@@ -25,7 +24,6 @@ jobs:
           - {
               name: "Ubuntu Linux (clang)",
               os: ubuntu-latest,
-              arch: arm64,
               shell: bash,
               #cmake_generator: "Unix Makefiles",
               cmake_generator: "Ninja",
@@ -103,10 +101,10 @@ jobs:
          -DBUILD_UTILS:BOOL=ON \
          -DBUILD_DOCUMENTATION:BOOL=OFF \
          -S. -Bbuild_temp
-    - if: matrix.config.cmake_generator != 'Ninja'
-      name: Build (make)
-      run: |
-        make -Cbuild_temp install/strip
+#    - if: matrix.config.cmake_generator != 'Ninja'
+#      name: Build (make)
+#      run: |
+#        make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Ninja'
       name: Build (ninja)
       run: |
