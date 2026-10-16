@@ -61,15 +61,15 @@ jobs:
               cxx: i686-w64-mingw32-g++.exe
             }
           - {
-              name: "Windows on ARM (gcc)",
+              name: "Windows on ARM (clang)",
               os: windows-11-arm,
               shell: 'msys2 {0}',
               #cmake_generator: "MSYS Makefiles",
               cmake_generator: "Ninja",
-              msystem: MINGW64,
+              msystem: CLANGARM64,
               arch: aarch64,
-              cc: aarch64-w64-mingw32-gcc.exe,
-              cxx: aarch64-w64-mingw32-g++.exe
+              cc: aarch64-w64-mingw32-clang.exe,
+              cxx: aarch64-w64-mingw32-clang++.exe
             }
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
@@ -118,7 +118,7 @@ jobs:
 #      run: |
 #        make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Unix Makefiles'
-      name: Build (ninja)
+      name: Build (make)
       run: |
         make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Ninja'
