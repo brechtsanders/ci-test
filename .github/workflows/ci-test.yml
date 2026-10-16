@@ -45,7 +45,6 @@ jobs:
               #cmake_generator: "MSYS Makefiles",
               cmake_generator: "Ninja",
               msystem: MINGW64,
-              toolchainprefix: "",
               arch: x86_64,
               cc: x86_64-w64-mingw32-gcc.exe,
               cxx: x86_64-w64-mingw32-g++.exe
@@ -57,7 +56,6 @@ jobs:
               #cmake_generator: "MSYS Makefiles",
               cmake_generator: "Ninja",
               msystem: MINGW32,
-              toolchainprefix: "",
               arch: i686,
               cc: i686-w64-mingw32-gcc.exe,
               cxx: i686-w64-mingw32-g++.exe
@@ -69,8 +67,7 @@ jobs:
               #cmake_generator: "MSYS Makefiles",
               cmake_generator: "Ninja",
               msystem: CLANG64,
-              toolchainprefix: "clang-",
-              arch: x86_64,
+              arch: clang-x86_64,
               cc: x86_64-w64-mingw32-clang.exe,
               cxx: x86_64-w64-mingw32-clang++.exe
             }
@@ -81,8 +78,7 @@ jobs:
               #cmake_generator: "MSYS Makefiles",
               cmake_generator: "Ninja",
               msystem: CLANGARM64,
-              toolchainprefix: "clang-",
-              arch: aarch64,
+              arch: clang-aarch64,
               cc: aarch64-w64-mingw32-clang.exe,
               cxx: aarch64-w64-mingw32-clang++.exe
             }
@@ -115,7 +111,6 @@ jobs:
           mingw-w64-${{ matrix.config.arch }}-cmake
           mingw-w64-${{ matrix.config.arch }}-ninja
           mingw-w64-${{ matrix.config.arch }}-toolchain
-          mingw-w64-${{ matrix.config.toolchainprefix }}${{ matrix.config.arch }}-toolchain
     - uses: actions/checkout@v1
     - name: Configure (cmake)
       run: |
