@@ -117,6 +117,10 @@ jobs:
 #      name: Build (make)
 #      run: |
 #        make -Cbuild_temp install/strip
+    - if: matrix.config.cmake_generator == 'Unix Makefiles'
+      name: Build (ninja)
+      run: |
+        make -Cbuild_temp install/strip
     - if: matrix.config.cmake_generator == 'Ninja'
       name: Build (ninja)
       run: |
