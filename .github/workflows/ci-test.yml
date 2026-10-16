@@ -60,6 +60,17 @@ jobs:
               cc: i686-w64-mingw32-gcc.exe,
               cxx: i686-w64-mingw32-g++.exe
             }
+          - {
+              name: "Windows on ARM (gcc)",
+              os: windows-11-arm,
+              shell: 'msys2 {0}',
+              #cmake_generator: "MSYS Makefiles",
+              cmake_generator: "Ninja",
+              msystem: MINGW64,
+              arch: aarch64,
+              cc: aarch64-w64-mingw32-gcc.exe,
+              cxx: aarch64-w64-mingw32-g++.exe
+            }
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     defaults:
@@ -100,6 +111,7 @@ jobs:
          -DBUILD_SHARED:BOOL=ON \
          -DBUILD_UTILS:BOOL=ON \
          -DBUILD_DOCUMENTATION:BOOL=OFF \
+         -DCMAKE_POLICY_VERSION_MINIMUM:STRING=3.5 \
          -S. -Bbuild_temp
 #    - if: matrix.config.cmake_generator != 'Ninja'
 #      name: Build (make)
